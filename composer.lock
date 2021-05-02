@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a06183f5a13ff2ff749c0ef9032dd02",
+    "content-hash": "4de838866d023dd9b28835253c029933",
     "packages": [
         {
             "name": "ahkmunna/paypalpayment",
@@ -167,73 +167,6 @@
             },
             "abandoned": true,
             "time": "2015-05-16T19:24:58+00:00"
-        },
-        {
-            "name": "ashallendesign/laravel-exchange-rates",
-            "version": "v2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ash-jc-allen/laravel-exchange-rates.git",
-                "reference": "2605db0e4514609c8027c93260688ef78e4c917a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ash-jc-allen/laravel-exchange-rates/zipball/2605db0e4514609c8027c93260688ef78e4c917a",
-                "reference": "2605db0e4514609c8027c93260688ef78e4c917a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "guzzlehttp/guzzle": "^6.3",
-                "illuminate/cache": "^5.8|^6.0|^7.0",
-                "illuminate/container": "^5.8|^6.0|^7.0",
-                "nesbot/carbon": "~2.0",
-                "php": "^7.2"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^3.8 || ^4.0",
-                "phpunit/phpunit": "^8.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "AshAllenDesign\\LaravelExchangeRates\\Providers\\ExchangeRatesProvider"
-                    ],
-                    "aliases": {
-                        "ExchangeRate": "AshAllenDesign\\LaravelExchangeRates\\Facades\\ExchangeRate"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "AshAllenDesign\\LaravelExchangeRates\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ash Allen",
-                    "email": "mail@ashallendesign.co.uk"
-                }
-            ],
-            "description": "A wrapper package for interacting with the exchangeratesapi.io API.",
-            "homepage": "https://github.com/ash-jc-allen/laravel-exchange-rates",
-            "keywords": [
-                "ashallendesign",
-                "exchange-rate",
-                "exchangeratesapi.io",
-                "laravel-exchange-rates"
-            ],
-            "support": {
-                "issues": "https://github.com/ash-jc-allen/laravel-exchange-rates/issues",
-                "source": "https://github.com/ash-jc-allen/laravel-exchange-rates/tree/master"
-            },
-            "time": "2020-05-30T01:15:13+00:00"
         },
         {
             "name": "authorizenet/authorizenet",
@@ -1459,6 +1392,57 @@
                 "source": "https://github.com/erusev/parsedown/tree/1.7.x"
             },
             "time": "2019-12-30T22:54:17+00:00"
+        },
+        {
+            "name": "fadion/fixerio",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fadion/Fixerio.git",
+                "reference": "6b58db5486fcfa6c0579b4a945040ac2e4c8d2a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fadion/Fixerio/zipball/6b58db5486fcfa6c0579b4a945040ac2e4c8d2a4",
+                "reference": "6b58db5486fcfa6c0579b4a945040ac2e4c8d2a4",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fadion\\Fixerio\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fadion Dashi",
+                    "email": "jonidashi@gmail.com",
+                    "homepage": "http://www.streha.al"
+                }
+            ],
+            "description": "Wrapper for Fixer.io",
+            "keywords": [
+                "exchange",
+                "fixer",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/fadion/Fixerio/issues",
+                "source": "https://github.com/fadion/Fixerio/tree/master"
+            },
+            "time": "2018-04-04T15:54:57+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -6286,6 +6270,82 @@
                 }
             ],
             "time": "2020-09-09T09:29:31+00:00"
+        },
+        {
+            "name": "spatie/laravel-translatable",
+            "version": "3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-translatable.git",
+                "reference": "bb022463072ee6fced9204453f99d42fc03ac9a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/bb022463072ee6fced9204453f99d42fc03ac9a4",
+                "reference": "bb022463072ee6fced9204453f99d42fc03ac9a4",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
+                "phpunit/phpunit": "^7.4|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Translatable\\TranslatableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Translatable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mohamed Said",
+                    "email": "theMohamedSaid@gmail.com",
+                    "role": "Original idea"
+                }
+            ],
+            "description": "A trait to make an Eloquent model hold translations",
+            "homepage": "https://github.com/spatie/laravel-translatable",
+            "keywords": [
+                "eloquent",
+                "i8n",
+                "laravel-translatable",
+                "model",
+                "multilingual",
+                "spatie",
+                "translate"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-translatable/issues",
+                "source": "https://github.com/spatie/laravel-translatable/tree/master"
+            },
+            "time": "2019-02-27T12:48:11+00:00"
         },
         {
             "name": "spatie/robots-txt",

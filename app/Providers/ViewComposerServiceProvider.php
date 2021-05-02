@@ -1173,13 +1173,14 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer(
 
-                '*',
+        '*',
 
-                function($view)
-                {
-                    $view->with('currencies', ListHelper::currencies());
-                    $view->with('languages', ListHelper::languages());
-                });
+        function($view)
+        {
+            $view->with('currencies', ListHelper::currencies());
+            $view->with('languages', ListHelper::languages());
+            $view->with('currencies_with_iso_code', ListHelper::currencies_with_iso_code(true));
+        });
         View::composer(
 
             'admin.system.general',

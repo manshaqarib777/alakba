@@ -129,17 +129,31 @@
           }
         });
 
-        // Currency changes
+        var currencyRoute = '{{route('currency.change', '_currency_')}}';
         $('select#currencyChange').ddslick({
           width: "100%",
           imagePosition: "left",
           selectText: "Select",
           onSelected: function(data){
               var currency = data.selectedData.value;
-              $("#selected").html(data.selectedData.value);
-              console.log(currency);
+              if (currency != "{{session()->get('currency')}}") {
+                  window.location.href = currencyRoute.replace("_currency_", currency);
+              }
           }
         });
+        
+
+        // // Currency changes
+        // $('select#currencyChange').ddslick({
+        //   width: "100%",
+        //   imagePosition: "left",
+        //   selectText: "Select",
+        //   onSelected: function(data){
+        //       var currency = data.selectedData.value;
+        //       $("#selected").html(data.selectedData.value);
+        //       console.log(currency);
+        //   }
+        // });
 
         // Currency changes Mobile
         $("#mobile-curency").ddslick({
@@ -370,8 +384,9 @@
 // Helpers
 function getFormatedValue(value = 0, dec = {{config('system_settings.decimals', 2)}})
 {
+
     value = value ? value : 0;
-    return parseFloat(value).toFixed(dec);
+    return parseFloat(value).toFixed(dec)*{{get_current_currency()}};
 }
 
 function getFormatedPrice(value = 0, trim = true)
@@ -383,7 +398,7 @@ function getFormatedPrice(value = 0, trim = true)
         value = arr[1] > 0 ? arr[0] + '<sup class="price-fractional">' + arr[1] + '</sup>' : arr[0];
     }
 
-    return "{{ get_currency_prefix() }}" + value + "{{ get_currency_suffix() }}";
+    return "{{ get_currency_prefix_for_products() }}" + value + "{{ get_currency_suffix_for_products() }}";
 }
 
  /*

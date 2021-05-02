@@ -11,7 +11,7 @@
     <!-- Main custom css -->
     <link href="{{ theme_asset_url('css/style.css')}}" media="screen" rel="stylesheet">
 
-    @if(config('active_locales')->firstWhere('code', App::getLocale())->rtl)
+    @if(@config('active_locales')->firstWhere('code', App::getLocale())->rtl)
        <link href="{{ theme_asset_url('css/rtl.css')}}" media="screen" rel="stylesheet">
     @endif
 
@@ -22,7 +22,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->--}}
 </head>
-<body class="{{ config('active_locales')->firstWhere('code', App::getLocale())->rtl ? 'rtl' : 'ltr'}}">
+<body class="{{ @config('active_locales')->firstWhere('code', App::getLocale())->rtl ? 'rtl' : 'ltr'}}">
     <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
     <![endif]-->

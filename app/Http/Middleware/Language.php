@@ -25,6 +25,11 @@ class Language
         /*
          * Locale is enabled and allowed to be changed
          */
+
+        if (!Session::has('currency'))
+        {
+            Session::put('currency','USD');
+        }
         if (Session::has('locale'))
         {
             $locale = Session::get('locale');

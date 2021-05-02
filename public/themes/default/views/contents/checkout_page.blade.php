@@ -64,6 +64,7 @@
           {{ Form::hidden('cart_weight', $cart->shipping_weight, ['id' => 'cartWeight'.$cart->id]) }}
           {{ Form::hidden('free_shipping', $cart->is_free_shipping(), ['id' => 'freeShipping'.$cart->id]) }}
           {{ Form::hidden('shop_id', $cart->shop->id, ['id' => 'shop-id'.$cart->id]) }}
+          {{ Form::hidden('currency_id', session()->get('currency'), ['id' => 'currency-id'.$cart->id]) }}
           {{ Form::hidden('tax_id', isset($shipping_zone->id) ? $shipping_zone->tax_id : Null, ['id' => 'tax-id'.$cart->id]) }}
           {{ Form::hidden('taxrate', $cart->taxrate, ['id' => 'cart-taxrate'.$cart->id]) }}
           {{ Form::hidden('packaging_id', $cart->packaging_id ?? $default_packaging->id, ['id' => 'packaging-id'.$cart->id]) }}
@@ -82,8 +83,8 @@
             </li>
             <li>
               <span>{{ trans('theme.subtotal') }}</span>
-              <span>{{ get_currency_prefix() }}
-                <span id="summary-total{{$cart->id}}">{{ number_format($cart->total, 2, '.', '') }}</span>{{ get_currency_suffix() }}
+              <span>{{ get_currency_prefix_for_products() }}
+                <span id="summary-total{{$cart->id}}">{{ number_format($cart->total, 2, '.', '') }}</span>{{ get_currency_suffix_for_products() }}
               </span>
             </li>
             <li>
@@ -93,8 +94,8 @@
                   </a>
                   <em id="summary-shipping-name{{$cart->id}}" class="small text-muted"></em>
               </span>
-              <span>{{ get_currency_prefix() }}
-                <span id="summary-shipping{{$cart->id}}">{{ number_format($cart->get_shipping_cost(), 2, '.', '') }}</span>{{ get_currency_suffix() }}
+              <span>{{ get_currency_prefix_for_products() }}
+                <span id="summary-shipping{{$cart->id}}">{{ number_format($cart->get_shipping_cost(), 2, '.', '') }}</span>{{ get_currency_suffix_for_products() }}
               </span>
 
             </li>
@@ -109,10 +110,10 @@
                       {{ optional($default_packaging)->name }}
                     </em>
                   </span>
-                  <span>{{ get_currency_prefix() }}
+                  <span>{{ get_currency_prefix_for_products() }}
                     <span id="summary-packaging{{$cart->id}}">
                       {{ number_format($default_packaging ? $default_packaging->cost : 0, 2, '.', '') }}
-                    </span>{{ get_currency_suffix() }}
+                    </span>{{ get_currency_suffix_for_products() }}
                   </span>
               </li>
             @endunless
@@ -121,22 +122,22 @@
               <span>{{ trans('theme.discount') }}
                 <em id="summary-discount-name{{$cart->id}}" class="small text-muted">{{$cart->coupon ? $cart->coupon->name : ''}}</em>
               </span>
-              <span>-{{ get_currency_prefix() }}
-                <span id="summary-discount{{$cart->id}}">{{$cart->coupon ? number_format($cart->discount, 2, '.', '') : number_format(0, 2, '.', '') }}</span>{{ get_currency_suffix() }}
+              <span>-{{ get_currency_prefix_for_products() }}
+                <span id="summary-discount{{$cart->id}}">{{$cart->coupon ? number_format($cart->discount, 2, '.', '') : number_format(0, 2, '.', '') }}</span>{{ get_currency_suffix_for_products() }}
               </span>
             </li>
 
             <li id="tax-section-li{{$cart->id}}" style="display: {{$cart->taxes > 0 ? 'block' : 'none'}};">
               <span>{{ trans('theme.taxes') }}</span>
-              <span>{{ get_currency_prefix() }}
-                <span id="summary-taxes{{$cart->id}}">{{ number_format($cart->taxes, 2, '.', '') }}</span>{{ get_currency_suffix() }}
+              <span>{{ get_currency_prefix_for_products() }}
+                <span id="summary-taxes{{$cart->id}}">{{ number_format($cart->taxes, 2, '.', '') }}</span>{{ get_currency_suffix_for_products() }}
               </span>
             </li>
 
             <li>
               <span class="lead">{{ trans('theme.total') }}</span>
-              <span class="lead">{{ get_currency_prefix() }}
-                <span id="summary-grand-total{{$cart->id}}">{{ number_format($cart->grand_total(), 2, '.', '') }}</span>{{ get_currency_suffix() }}
+              <span class="lead">{{ get_currency_prefix_for_products() }}
+                <span id="summary-grand-total{{$cart->id}}">{{ number_format($cart->grand_total(), 2, '.', '') }}</span>{{ get_currency_suffix_for_products() }}
               </span>
             </li>
           </ul>

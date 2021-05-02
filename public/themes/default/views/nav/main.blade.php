@@ -68,15 +68,24 @@
             </a>
           </li>
 
-          {{--  <li class="currency">
+           {{-- <li class="currency">
              <select name="currency" id="currencyChange">
                <option value="usd" data-imagesrc="{{theme_asset_url('icon/lang3.png')}}">USD</option>
                <option value="jpy" data-imagesrc="{{theme_asset_url('icon/lang4.png')}}">JPY</option>
                <option value="eur" data-imagesrc="{{theme_asset_url('icon/lang5.png')}}">EUR</option>
                <option value="aud" data-imagesrc="{{theme_asset_url('icon/lang6.png')}}">AUD</option>
              </select>
-           </li>--}}
+           </li> --}}
 
+           <li class="currency">
+            <select name="currency" id="currencyChange">
+                @foreach($currencies_with_iso_code as $key => $value)
+                  <option dd-link="{{route('currency.change', $value->iso_code)}}" value="{{$value->iso_code}}"  {{$value->iso_code == session()->get('currency') ? 'selected' : ''}}>
+                      {{ $value->name . ' (' . $value->iso_code . ' ' . $value->symbol . ')' }}
+                  </option>
+                @endforeach
+            </select>
+          </li>
           <li class="language">
             <select name="lang" id="languageChange">
                 @foreach(config('active_locales') as $lang)

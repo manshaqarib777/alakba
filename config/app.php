@@ -209,6 +209,7 @@ return [
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\GoogleDriveServiceProvider::class,
         App\Providers\MysqlScoutServiceProvider::class,
+        Fadion\Fixerio\ExchangeServiceProvider::class
 
     ], $packages),
 
@@ -272,6 +273,7 @@ return [
         // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Paypalpayment'   => Anouar\Paypalpayment\Facades\PaypalPayment::class,
         'Chat'   => Musonza\Chat\Chat::class,
+        'Exchange' => Fadion\Fixerio\Facades\Exchange::class
     ],
 
 ];

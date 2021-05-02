@@ -1195,6 +1195,23 @@ class ListHelper
         return $result;
     }
 
+
+    public static function currencies_with_iso_code($all = false)
+    {
+        $query = \DB::table('currencies')->select('name', 'symbol', 'iso_code', 'id');
+
+            $query->where('active', 1);
+
+        $currencies = $query->orderBy('priority', 'asc')->orderBy('name', 'asc')->get();
+
+        // $result = [];
+        // foreach ($currencies as $currency) {
+        //     $result[$currency->iso_code] = $currency->name . ' (' . $currency->iso_code . ' ' . $currency->symbol . ')';
+        // }
+
+        return $currencies;
+    }
+
     /**
      * Get attributes list for form dropdown.
      *

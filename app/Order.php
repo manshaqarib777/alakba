@@ -112,7 +112,8 @@ class Order extends BaseModel
                         'approved',
                         'feedback_id',
                         'disputed',
-                        'email'
+                        'email',
+                        'currency_id'
                     ];
 
     /**
@@ -140,6 +141,11 @@ class Order extends BaseModel
     public function shop()
     {
         return $this->belongsTo(Shop::class)->withDefault();
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class)->withDefault();
     }
 
     /**

@@ -21,4 +21,11 @@ class LocaleController extends Controller
 
         return redirect()->back();
     }
+
+    public function changeCurrency($iso_code = 'USD')
+    {
+        Session::put('currency', $iso_code);
+
+        return redirect()->back();
+    }
 }

@@ -119,5 +119,8 @@ return [
         'secret' => env('PUSHER_APP_SECRET'),
         'cluster' => env('PUSHER_APP_CLUSTER'),
     ],
+    'fixer'=>[
+        'key'=>env("FIXER_ACCESS_KEY"),
+    ]
 
 ];

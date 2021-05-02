@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validations\CreateCurrencyRequest;
 use App\Http\Requests\Validations\UpdateCurrencyRequest;
-use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
-use Carbon\Carbon;
+
 class CurrencyController extends Controller
 {
     use Authorizable;
@@ -31,9 +30,7 @@ class CurrencyController extends Controller
     public function index()
     {
 
-        $exchangeRates = new ExchangeRate();
-        $exchangeRates->exchangeRate('GBP', 'EUR');
-        dd($exchangeRates);
+
     	$currencies_view = Currency::orderBy('active', 'desc')->orderBy('priority', 'asc')->get();
 
         return view('admin.currency.index', compact('currencies_view'));
