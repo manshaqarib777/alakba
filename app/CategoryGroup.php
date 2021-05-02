@@ -5,10 +5,11 @@ namespace App;
 use App\Common\Imageable;
 use App\Common\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class CategoryGroup extends BaseModel
 {
-    use SoftDeletes, CascadeSoftDeletes, Imageable;
+    use SoftDeletes, CascadeSoftDeletes, Imageable,HasTranslations;
 
     /**
      * The database table used by the model.
@@ -22,7 +23,9 @@ class CategoryGroup extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'slug', 'icon', 'order', 'active', 'meta_title', 'meta_description'];
+    
+    public $translatable = ['name'];
+    protected $fillable = ['name','description', 'slug', 'icon', 'order', 'active', 'meta_title', 'meta_description'];
 
     /**
      * The attributes that should be mutated to dates.

@@ -1,11 +1,14 @@
 <div class="row">
-  <div class="col-md-8 nopadding-right">
-    <div class="form-group">
-      {!! Form::label('name', trans('app.form.category_name').'*', ['class' => 'with-help']) !!}
-      {!! Form::text('name', null, ['class' => 'form-control makeSlug', 'placeholder' => trans('app.placeholder.category_name'), 'required']) !!}
-      <div class="help-block with-errors"></div>
-    </div>
+@foreach ($languages as $key => $value)
+<div class="col-md-6 nopadding-right">
+  <div class="form-group">
+    {!! Form::label('name', trans('app.form.category_name').'* ('.$value.')', ['class' => 'with-help']) !!}
+    <input type="text" name="name[{{$key}}]" value="{{isset($categoryGroup) ? $categoryGroup->getTranslation('name', $key):''}}" class = "form-control makeSlug" placeholder="{{trans('app.placeholder.category_name')}}" required />
+    <div class="help-block with-errors"></div>
   </div>
+</div>  
+@endforeach
+
   <div class="col-md-4 nopadding-left">
     <div class="form-group">
       {!! Form::label('order', trans('app.form.position'), ['class' => 'with-help']) !!}

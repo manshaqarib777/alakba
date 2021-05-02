@@ -346,7 +346,7 @@ class ListHelper
      */
     public static function categoryGrps()
     {
-        return \DB::table('category_groups')->where('deleted_at', Null)->orderBy('name', 'asc')->pluck('name', 'id');
+        return CategoryGroup::where('deleted_at', Null)->orderBy('name', 'asc')->pluck('name', 'id');
     }
 
     /**
@@ -1179,11 +1179,11 @@ class ListHelper
      */
     public static function currencies($all = false)
     {
-         $query = \DB::table('currencies')->select('name', 'symbol', 'iso_code', 'id');
+        $query = \DB::table('currencies')->select('name', 'symbol', 'iso_code', 'id');
 
-         if(! $all){
-             $query->where('active', 1);
-         }
+        if(! $all){
+            $query->where('active', 1);
+        }
 
         $currencies = $query->orderBy('priority', 'asc')->orderBy('name', 'asc')->get();
 

@@ -1173,27 +1173,25 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer(
 
-                'admin.system.general',
+                '*',
 
                 function($view)
                 {
-                    $view->with('timezones', ListHelper::timezones());
                     $view->with('currencies', ListHelper::currencies());
                     $view->with('languages', ListHelper::languages());
-                    $view->with('business_areas', ListHelper::marketplace_business_area());
                 });
         View::composer(
 
-            'admin.config.general',
+            'admin.system.general',
 
             function($view)
             {
                 $view->with('timezones', ListHelper::timezones());
-                $view->with('currencies', ListHelper::currencies());
-                $view->with('languages', ListHelper::languages());
                 $view->with('business_areas', ListHelper::marketplace_business_area());
             });
     }
+
+    
 
     /**
      * compose partial view of banner form

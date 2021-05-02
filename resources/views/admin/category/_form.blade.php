@@ -1,13 +1,16 @@
 <div class="row">
-  <div class="col-md-6 nopadding-right">
-    <div class="form-group">
-      {!! Form::label('name', trans('app.form.category_name').'*') !!}
-      {!! Form::text('name', null, ['class' => 'form-control makeSlug', 'placeholder' => trans('app.placeholder.category_name'), 'required']) !!}
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
 
-  <div class="col-md-6 nopadding-left">
+  @foreach ($languages as $key => $value)
+<div class="col-md-6">
+  <div class="form-group">
+    {!! Form::label('name', trans('app.form.category_name').'* ('.$value.')') !!}
+    <input type="text" name="name[{{$key}}]" value="{{isset($category) ? $category->getTranslation('name', $key):''}}" class = "form-control makeSlug" placeholder="{{trans('app.placeholder.category_name')}}" required />
+    <div class="help-block with-errors"></div>
+  </div>
+</div>  
+@endforeach
+
+  <div class="col-md-6">
     <div class="form-group">
       {!! Form::label('category_sub_group_id', trans('app.form.category_sub_group').'*') !!}
       {!! Form::select('category_sub_group_id', $catList , null, ['class' => 'form-control select2-categories', 'placeholder' => trans('app.placeholder.category_sub_group'), 'required']) !!}
@@ -26,14 +29,14 @@
     </div>
   </div>
 
-  <div class="col-md-3 nopadding-right nopadding-left">
+  <div class="col-md-3 nopadding-right">
     <div class="form-group">
       {!! Form::label('active', trans('app.form.status').'*', ['class' => 'with-help']) !!}
       {!! Form::select('active', ['1' => 'Active', '0' => 'Inactive'], null, ['class' => 'form-control select2-normal', 'placeholder' => trans('app.placeholder.status'), 'required']) !!}
       <div class="help-block with-errors"></div>
     </div>
   </div>
-  <div class="col-md-3 nopadding-left">
+  <div class="col-md-3">
     <div class="form-group">
       {!! Form::label('order', trans('app.form.position'), ['class' => 'with-help']) !!}
       <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.display_order') }}"></i>
@@ -65,7 +68,7 @@
             <input id="uploadFile" placeholder="{{ trans('app.placeholder.category_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
             <div class="help-block with-errors">{{ trans('help.cover_img_size') }}</div>
           </div>
-          <div class="col-md-3 nopadding-left">
+          <div class="col-md-3">
       			<div class="fileUpload btn btn-primary btn-block btn-flat">
       			    <span>{{ trans('app.form.upload') }} </span>
       			    <input type="file" name="images[cover]" id="uploadBtn" class="upload" />
@@ -75,7 +78,7 @@
     </div>
   </div>
 
-  <div class="col-md-6 nopadding-left">
+  <div class="col-md-6">
     <div class="form-group">
       {!! Form::label('exampleInputFile', trans('app.form.featured_image'), ['class' => 'with-help']) !!}
       <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.featured_image', ['page' => trans('app.category')]) }}"></i>
@@ -90,7 +93,7 @@
             <input id="uploadFile1" placeholder="{{ trans('app.placeholder.category_featured_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
             <div class="help-block with-errors">{{ trans('help.featured_img_size') }}</div>
           </div>
-          <div class="col-md-3 nopadding-left">
+          <div class="col-md-3">
       			<div class="fileUpload btn btn-primary btn-block btn-flat">
       			    <span>{{ trans('app.form.upload') }} </span>
       			    <input type="file" name="images[feature]" id="uploadBtn1" class="upload" />

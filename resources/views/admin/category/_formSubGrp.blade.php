@@ -3,11 +3,15 @@
   {!! Form::select('category_group_id', $catGroups , null, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.category_group'), 'required']) !!}
   <div class="help-block with-errors"></div>
 </div>
-<div class="form-group">
-  {!! Form::label('name', trans('app.form.category_sub_grp_name').'*') !!}
-  {!! Form::text('name', null, ['class' => 'form-control makeSlug', 'placeholder' => trans('app.placeholder.category_sub_grp_name'), 'required']) !!}
-  <div class="help-block with-errors"></div>
-</div>
+@foreach ($languages as $key => $value)
+<div class="col-md-6 nopadding-right">
+  <div class="form-group">
+    {!! Form::label('name', trans('app.form.category_sub_grp_name').'* ('.$value.')') !!}
+    <input type="text" name="name[{{$key}}]" value="{{isset($categorySubGroup) ? $categorySubGroup->getTranslation('name', $key):''}}" class = "form-control makeSlug" placeholder="{{trans('app.placeholder.category_sub_grp_name')}}" required />
+    <div class="help-block with-errors"></div>
+  </div>
+</div>  
+@endforeach
 
 <div class="row">
   <div class="col-md-6 nopadding-right">
