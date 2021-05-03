@@ -44,7 +44,6 @@ class SystemController extends Controller
     public function view()
     {
         $system = System::orderBy('id', 'asc')->first();
-
         return view('admin.system.general', compact('system'));
     }
 

@@ -41,7 +41,7 @@
 					</tr>
 				</thead>
 				<tbody id="massSelectArea">
-					@foreach($currencies as $currency )
+					@foreach($currencies_view as $currency )
 					<tr>
 					  	@can('massDelete', App\Currency::class)
 							<td><input id="{{ $currency->id }}" type="checkbox" class="massCheck"></td>

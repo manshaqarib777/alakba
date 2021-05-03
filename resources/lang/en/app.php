@@ -1566,4 +1566,6 @@ return [
     'left' => 'Left',
     'right' => 'Right',
     'search_inventory' => 'Search item',
+    'upload_package' => 'Upload package',
+    'zip_archive' => 'Zip archive file',
 ];

@@ -27,11 +27,11 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        $languages = Language::orderBy('active', 'desc')->orderBy('order', 'asc')->get();
+        $languages_view = Language::orderBy('active', 'desc')->orderBy('order', 'asc')->get();
 
         $trashes = Language::onlyTrashed()->get();
 
-        return view('admin.language.index', compact('languages', 'trashes'));
+        return view('admin.language.index', compact('languages_view', 'trashes'));
     }
 
     /**

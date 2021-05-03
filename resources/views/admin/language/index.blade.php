@@ -39,7 +39,7 @@
 		        </tr>
 	        </thead>
 	        <tbody id="massSelectArea">
-		        @foreach($languages as $language )
+		        @foreach($languages_view as $language )
 			        <tr>
 					  	@can('massDelete', App\Language::class)
 							<td><input id="{{ $language->id }}" type="checkbox" class="massCheck"></td>

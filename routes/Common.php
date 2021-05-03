@@ -1,6 +1,7 @@
 <?php
 // Switch between the included languages
 Route::get('locale/{locale?}', 'LocaleController@change')->name('locale.change');
+Route::get('currency/{currency?}', 'LocaleController@changeCurrency')->name('currency.change');
 
 // Contact Us
 Route::post('/contact_us', 'ContactUsController@send')->name('contact_us');

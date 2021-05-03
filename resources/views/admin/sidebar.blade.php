@@ -409,7 +409,7 @@
           </li>
         @endif
 
-          {{--Flash deal merge into promotions--}}
+        {{--Flash deal merge into promotions--}}
         @if(Auth::user()->isAdmin())
           <li class="treeview {{ Request::is('admin/promotions*') || Request::is('admin/flashdeal*') ? 'active' : '' }}">
             <a href="javascript:void(0)">
@@ -418,25 +418,22 @@
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-
               <li class="{{ Request::is('admin/promotions*') ? 'active' : '' }}">
                   <a href="{{ url('admin/promotions') }}">
                       <i class="fa fa-angle-double-right"></i> <span>{{ trans('nav.promotions') }}</span>
                   </a>
               </li>
 
-                @if(Auth::user()->isAdmin() && is_incevio_package_loaded('flashdeal'))
-                    <li class="{{ Request::is('admin/flashdeal*') ? 'active' : '' }}">
-                        <a href="{{ route('admin.flashdeal') }}">
-                            <i class="fa fa-angle-double-right"></i> {{ trans('flashdeal::lang.flashdeal') }}
-                        </a>
-                    </li>
-                @endif
-
+              @if(Auth::user()->isAdmin() && is_incevio_package_loaded('flashdeal'))
+                  <li class="{{ Request::is('admin/flashdeal*') ? 'active' : '' }}">
+                      <a href="{{ route('admin.flashdeal') }}">
+                          <i class="fa fa-angle-double-right"></i> {{ trans('flashdeal::lang.flashdeal') }}
+                      </a>
+                  </li>
+              @endif
             </ul>
           </li>
         @endif
-
 
         @if(Auth::user()->isAdmin())
           <li class="{{ Request::is('admin/packages*') ? 'active' : '' }}">
@@ -526,7 +523,6 @@
             @endif
 
             @if(Auth::user()->isAdmin())
-
               <li class="{{ Request::is('admin/setting/country*') ? 'active' : '' }}">
                 <a href="{{ url('admin/setting/country') }}">
                   <i class="fa fa-angle-double-right"></i> {{ trans('nav.countries') }}
@@ -624,7 +620,6 @@
             </a>
             <ul class="treeview-menu">
               @if(Auth::user()->isAdmin())
-
                 @if(is_incevio_package_loaded('wallet'))
                     <li class="{{ Request::is('admin/report/wallet/payout/report*') ? 'active' : '' }}">
                         <a href="{{ route('admin.wallet.payout.report') }}">
@@ -667,7 +662,6 @@
                         </li>
                     </ul>
                 </li>
-
               @elseif(Auth::user()->isMerchant())
                 <li class="{{ Request::is('admin/shop/report/kpi*') ? 'active' : '' }}">
                   <a href="{{ route('admin.shop-kpi') }}">
@@ -692,6 +686,5 @@
         </li>
         -->
       </ul>
-  </section>
-  <!-- /.sidebar -->
+  </section>  <!-- /.sidebar -->
 </aside>

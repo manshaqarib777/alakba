@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Cart;
 use App\Order;
 use App\Coupon;
+use App\Currency;
 use App\Visitor;
 use App\Packaging;
 use App\ShippingRate;
@@ -309,6 +310,8 @@ if (! function_exists('saveOrderFromCart'))
             $cart->shipping_rate_id = Null;
             $cart->handling = Null;
         }
+
+        $currency=Currency::where('iso_code',$request->currency_id)->first();
         // Save the order
         $order = new Order;
 
@@ -321,6 +324,7 @@ if (! function_exists('saveOrderFromCart'))
                 'shipping_address' => $request->shipping_address ?? $cart->shipping_address,
                 'billing_address' => $request->shipping_address ?? $cart->shipping_address,
                 'email' => $request->email ?? $cart->email,
+                'currency_id' => $currency->id ?? $currency->id,
                 'buyer_note' => $request->buyer_note
             ])
         );
@@ -612,12 +616,12 @@ if (! function_exists('crosscheckAndUpdateOldCartInfo'))
         $cart->ship_to = $request->ship_to ?? $request->country_id ?? $cart->ship_to;
         $cart->shipping_weight = $shipping_weight;
         $cart->quantity = $quantity;
-        $cart->total = $total;
-        $cart->taxes = $taxes;
-        $cart->shipping = $shipping;
-        $cart->packaging = $packaging;
-        $cart->discount = $discount;
-        $cart->handling = $handling;
+        $cart->total = $total*get_current_currency();
+        $cart->taxes = $taxes*get_current_currency();
+        $cart->shipping = $shipping*get_current_currency();
+        $cart->packaging = $packaging*get_current_currency();
+        $cart->discount = $discount*get_current_currency();
+        $cart->handling = $handling*get_current_currency();
         $cart->grand_total = ($total + $taxes + $shipping + $packaging + $handling) - $discount;
         $cart->save();
 

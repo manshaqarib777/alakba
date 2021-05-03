@@ -112,14 +112,14 @@
         }, 0)
         }());
 
-        $('.main-menu').mobileMegaMenu({
-           changeToggleText: false,
-           enableWidgetRegion: true,
-           prependCloseButton: true,
-           stayOnActive: true,
-           // toogleTextOnClose: 'Close Menu',
-           menuToggle: 'main-menu-toggle'
-        });
+        // $('.main-menu').mobileMegaMenu({
+        //    changeToggleText: false,
+        //    enableWidgetRegion: true,
+        //    prependCloseButton: true,
+        //    stayOnActive: true,
+        //    // toogleTextOnClose: 'Close Menu',
+        //    menuToggle: 'main-menu-toggle'
+        // });
 
 });
 }(window.jQuery, window, document));

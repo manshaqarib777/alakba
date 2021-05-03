@@ -97,12 +97,15 @@ class Shop extends BaseModel
                     'card_brand',
                     'card_last_four',
                     'trial_ends_at',
+                    'custom_subscription_fee',
+                    'commission_rate',
                     'hide_trial_notice',
                     'active',
                     'payment_verified',
                     'id_verified',
                     'phone_verified',
                     'address_verified',
+                    'currency_id',
                 ];
 
     /**
@@ -111,6 +114,11 @@ class Shop extends BaseModel
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id')->withTrashed();
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class, 'currency_id');
     }
 
     /**

@@ -645,7 +645,7 @@ return [
 
     'slider_image' => 'The main image what will display as slider. Its required to generate the slider.',
 
-    'slider_img_hint' => 'The slider image should be 1280x300px',
+    'slider_img_hint' => 'The slider image should be 1280x350px',
 
     'slider_order' => 'The slider will be  arranged by this order.',
 
@@ -804,4 +804,6 @@ return [
     'slider_text_position' => 'Set your content position on slider. default position right',
 
     'deal_of_the_day' => 'Just one item can be set as deal of the day.',
+
+    'upload_package_zip_archive' => 'Upload the zip archive containing the package files only. Don\'t upload documentation or other files.',
 ];

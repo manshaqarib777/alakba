@@ -69,7 +69,7 @@ class StripePaymentService implements PaymentServiceContract
 
         	// Set platform fee for order if not already set
         	if (! $this->fee) {
-				 $this-setPlatformFee(getPlatformFeeForOrder($this->order));
+				 $this->setPlatformFee(getPlatformFeeForOrder($this->order));
         	}
 
         	if ($this->fee) {

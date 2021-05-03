@@ -106,6 +106,18 @@
 								@endif
 							</div>
 						</div>
+						<div class="form-group">
+							{!! Form::label('currency_id', '*' . trans('app.form.system_currency'). ':', ['class' => 'with-help col-sm-3 control-label']) !!}
+							  <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.system_currency') }}"></i>
+							  <div class="col-sm-8 nopadding-left">
+								  @if($can_update)
+									{!! Form::select('currency_id', $currencies , $shop->currency_id, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.system_currency'), 'required']) !!}
+									  <div class="help-block with-errors"></div>
+								@else
+									<span>{{ $shop->name }}</span>
+								@endif
+							  </div>
+						</div>
 
 				  		@if($can_update)
 							<div class="form-group">
@@ -177,10 +189,10 @@
 					        <div class="spacer30"></div>
 						</div>
 
-						@if(isset($shop) && $shop->logo)
+						@if(isset($shop) && $shop->logoImage)
 							<div class="form-group text-center">
 								<label class="with-help control-label"> {{ trans('app.logo') }}</label>
-								<img src="{{ get_storage_file_url(optional($shop->logo)->path, 'medium') }}" alt="{{ trans('app.logo') }}">
+								<img src="{{ get_storage_file_url(optional($shop->logoImage)->path, 'medium') }}" alt="{{ trans('app.logo') }}">
 						        <div class="spacer10"></div>
 								<label>
 							    	{!! Form::checkbox('delete_image', 1, null, ['class' => 'icheck']) !!} {{ trans('app.form.delete_logo') }}
@@ -188,10 +200,10 @@
 							</div>
 					  	@endif
 
-						@if(isset($shop) && $shop->featuredImage)
+						@if(isset($shop) && $shop->coverImage)
 							<div class="form-group text-center">
 								<label class="with-help control-label"> {{ trans('app.cover_image') }}</label>
-		                      	<img src="{{ get_storage_file_url(optional($shop->featuredImage)->path, 'medium') }}" width="" alt="{{ trans('app.cover_image') }}">
+		                      	<img src="{{ get_storage_file_url(optional($shop->coverImage)->path, 'medium') }}" width="" alt="{{ trans('app.cover_image') }}">
 			                    <label>
 						        <div class="spacer10"></div>
 								<label>

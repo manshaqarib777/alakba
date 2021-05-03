@@ -346,7 +346,7 @@ class ListHelper
      */
     public static function categoryGrps()
     {
-        return \DB::table('category_groups')->where('deleted_at', Null)->orderBy('name', 'asc')->pluck('name', 'id');
+        return CategoryGroup::where('deleted_at', Null)->orderBy('name', 'asc')->pluck('name', 'id');
     }
 
     /**
@@ -851,46 +851,6 @@ class ListHelper
     }*/
 
     /**
-     * Get Flash Deals
-     * @return array
-     */
-    public static function get_flash_deal()
-    {
-        if (is_incevio_package_loaded('flashdeal')){
-            $items = get_from_option_table('flashdeal_items', []);
-            $flash_deals = [];
-
-            if (! empty($items['products'])){
-                $flash_deals['products'] = Inventory::whereIn('id', $items['products'])
-                    ->with([
-                        'feedbacks:rating,feedbackable_id,feedbackable_type',
-                        'image:path,imageable_id,imageable_type',
-                        'product:id,slug',
-                        'product.image:path,imageable_id,imageable_type'
-                    ])
-                    ->groupBy('product_id')
-                    ->get();
-            }
-
-            if (! empty($items['featured'])){
-                $flash_deals['featured'] = Inventory::whereIn('id', $items['featured'])
-                    ->with([
-                        'feedbacks:rating,feedbackable_id,feedbackable_type',
-                        'image:path,imageable_id,imageable_type',
-                        'product:id,slug',
-                        'product.image:path,imageable_id,imageable_type'
-                    ])
-                    ->groupBy('product_id')
-                    ->get();
-            }
-
-            return array_merge($items, $flash_deals);
-        }
-
-        return Null;
-    }
-
-    /**
      * Get featured products list for dropdown
      * @return array
      */
@@ -1219,11 +1179,11 @@ class ListHelper
      */
     public static function currencies($all = false)
     {
-         $query = \DB::table('currencies')->select('name', 'symbol', 'iso_code', 'id');
+        $query = \DB::table('currencies')->select('name', 'symbol', 'iso_code', 'id');
 
-         if(! $all){
-             $query->where('active', 1);
-         }
+        if(! $all){
+            $query->where('active', 1);
+        }
 
         $currencies = $query->orderBy('priority', 'asc')->orderBy('name', 'asc')->get();
 
@@ -1233,6 +1193,23 @@ class ListHelper
         }
 
         return $result;
+    }
+
+
+    public static function currencies_with_iso_code($all = false)
+    {
+        $query = \DB::table('currencies')->select('name', 'symbol', 'iso_code', 'id');
+
+            $query->where('active', 1);
+
+        $currencies = $query->orderBy('priority', 'asc')->orderBy('name', 'asc')->get();
+
+        // $result = [];
+        // foreach ($currencies as $currency) {
+        //     $result[$currency->iso_code] = $currency->name . ' (' . $currency->iso_code . ' ' . $currency->symbol . ')';
+        // }
+
+        return $currencies;
     }
 
     /**

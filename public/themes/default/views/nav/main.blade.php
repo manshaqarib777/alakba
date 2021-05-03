@@ -28,7 +28,7 @@
             </li>
           @else
             <li class="image-icon">
-               <a href="{{route('customer.login')}}">
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal">
                 <i class="fal fa-user"></i>
                 <span>{{ trans('theme.sing_in') }}</span>
               </a>
@@ -68,15 +68,24 @@
             </a>
           </li>
 
-          {{--  <li class="currency">
+           {{-- <li class="currency">
              <select name="currency" id="currencyChange">
                <option value="usd" data-imagesrc="{{theme_asset_url('icon/lang3.png')}}">USD</option>
                <option value="jpy" data-imagesrc="{{theme_asset_url('icon/lang4.png')}}">JPY</option>
                <option value="eur" data-imagesrc="{{theme_asset_url('icon/lang5.png')}}">EUR</option>
                <option value="aud" data-imagesrc="{{theme_asset_url('icon/lang6.png')}}">AUD</option>
              </select>
-           </li>--}}
+           </li> --}}
 
+           <li class="currency">
+            <select name="currency" id="currencyChange">
+                @foreach($currencies_with_iso_code as $key => $value)
+                  <option dd-link="{{route('currency.change', $value->iso_code)}}" value="{{$value->iso_code}}"  {{$value->iso_code == session()->get('currency') ? 'selected' : ''}}>
+                      {{ $value->name . ' (' . $value->iso_code . ' ' . $value->symbol . ')' }}
+                  </option>
+                @endforeach
+            </select>
+          </li>
           <li class="language">
             <select name="lang" id="languageChange">
                 @foreach(config('active_locales') as $lang)
@@ -213,7 +222,7 @@
                     <span>{{ $catGroup->name }}</span>
                     <i class="fal fa-chevron-right"></i>
                   </a>
-                  <div class="mega-dropdown" style="background-image:url({{ get_storage_file_url(optional($catGroup->backgroundImage)->path, 'full') }}); background-position: right bottom; background-repeat: no-repeat;margin-right: 0; background-size: contain;">
+                  <div class="mega-dropdown" style="background-image:url({{ $catGroup->backgroundImage ? get_storage_file_url(optional($catGroup->backgroundImage)->path, 'full') : '' }}); background-position: right bottom; background-repeat: no-repeat;margin-right: 0; background-size: contain;">
 
                     <div class="row">
                       @foreach($catGroup->subGroups as $subGroup)

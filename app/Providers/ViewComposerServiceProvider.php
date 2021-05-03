@@ -540,7 +540,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 $view->with('current_plan', Auth::user()->getCurrentPlan());
                 $view->with('billable', Auth::user()->shop->hasPaymentMethod() ? Auth::user()->shop : Null);
 
-                if (SystemConfig::isPaymentConfigured('stripe')) {
+                if(SystemConfig::isPaymentConfigured('stripe')) {
                     $view->with('intent', Auth::user()->shop->createSetupIntent());
                 }
             }
@@ -1173,16 +1173,26 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer(
 
-                'admin.system.general',
+        '*',
 
-                function($view)
-                {
-                    $view->with('timezones', ListHelper::timezones());
-                    $view->with('currencies', ListHelper::currencies());
-                    $view->with('languages', ListHelper::languages());
-                    $view->with('business_areas', ListHelper::marketplace_business_area());
-                });
+        function($view)
+        {
+            $view->with('currencies', ListHelper::currencies());
+            $view->with('languages', ListHelper::languages());
+            $view->with('currencies_with_iso_code', ListHelper::currencies_with_iso_code(true));
+        });
+        View::composer(
+
+            'admin.system.general',
+
+            function($view)
+            {
+                $view->with('timezones', ListHelper::timezones());
+                $view->with('business_areas', ListHelper::marketplace_business_area());
+            });
     }
+
+    
 
     /**
      * compose partial view of banner form

@@ -29,9 +29,11 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-    	$currencies = Currency::orderBy('active', 'desc')->orderBy('priority', 'asc')->get();
 
-        return view('admin.currency.index', compact('currencies'));
+
+    	$currencies_view = Currency::orderBy('active', 'desc')->orderBy('priority', 'asc')->get();
+
+        return view('admin.currency.index', compact('currencies_view'));
     }
 
     /**

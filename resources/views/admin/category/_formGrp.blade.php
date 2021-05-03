@@ -1,11 +1,14 @@
 <div class="row">
-  <div class="col-md-8">
-    <div class="form-group">
-      {!! Form::label('name', trans('app.form.category_name').'*', ['class' => 'with-help']) !!}
-      {!! Form::text('name', null, ['class' => 'form-control makeSlug', 'placeholder' => trans('app.placeholder.category_name'), 'required']) !!}
-      <div class="help-block with-errors"></div>
-    </div>
+@foreach ($languages as $key => $value)
+<div class="col-md-6 nopadding-right">
+  <div class="form-group">
+    {!! Form::label('name', trans('app.form.category_name').'* ('.$value.')', ['class' => 'with-help']) !!}
+    <input type="text" name="name[{{$key}}]" value="{{isset($categoryGroup) ? $categoryGroup->getTranslation('name', $key):''}}" class = "form-control makeSlug" placeholder="{{trans('app.placeholder.category_name')}}" required />
+    <div class="help-block with-errors"></div>
   </div>
+</div>  
+@endforeach
+
   <div class="col-md-4 nopadding-left">
     <div class="form-group">
       {!! Form::label('order', trans('app.form.position'), ['class' => 'with-help']) !!}
@@ -18,14 +21,14 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4 nopadding-right">
     <div class="form-group">
       {!! Form::label('slug', trans('app.form.slug').'*') !!}
       {!! Form::text('slug', null, ['class' => 'form-control slug', 'placeholder' => trans('app.placeholder.slug'), 'required']) !!}
       <div class="help-block with-errors"></div>
     </div>
   </div>
-	<div class="col-md-4 nopadding-left">
+	<div class="col-md-4 nopadding-left nopadding-right">
 		<div class="form-group">
 		  {!! Form::label('icon', trans('app.form.icon')) !!}
 			<div class="input-group">
@@ -51,7 +54,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 nopadding-right">
     <div class="form-group">
       {!! Form::label('exampleInputFile', trans('app.background_image'), ['class' => 'with-help']) !!}
       <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.cat_grp_img') }}"></i>
@@ -64,7 +67,7 @@
         </label>
       @endif
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9 nopadding-right">
           <input id="uploadFile" placeholder="{{ trans('app.background_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
         </div>
         <div class="col-md-3 nopadding-left">
@@ -89,7 +92,7 @@
         </label>
       @endif
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9 nopadding-right">
           <input id="uploadFile1" placeholder="{{ trans('app.cover_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
           <div class="help-block with-errors">{{ trans('help.cover_img_size') }}</div>
         </div>

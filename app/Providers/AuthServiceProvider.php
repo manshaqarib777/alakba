@@ -19,7 +19,6 @@ class AuthServiceProvider extends ServiceProvider
         \App\AttributeValue::class      => \App\Policies\AttributeValuePolicy::class,
         \App\Banner::class              => \App\Policies\BannerPolicy::class,
         \App\Blog::class                => \App\Policies\BlogPolicy::class,
-        \App\CarrierValue::class        => \App\Policies\CarrierValuePolicy::class,
         \App\Cart::class                => \App\Policies\CartPolicy::class,
         \App\Carrier::class             => \App\Policies\CarrierPolicy::class,
         \App\Category::class            => \App\Policies\CategoryPolicy::class,

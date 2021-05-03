@@ -4,10 +4,11 @@ namespace App;
 
 use App\Common\Imageable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class Category extends BaseModel
 {
-    use SoftDeletes, Imageable;
+    use SoftDeletes, Imageable,HasTranslations;
 
     /**
      * The database table used by the model.
@@ -21,6 +22,7 @@ class Category extends BaseModel
      *
      * @var array
      */
+    public $translatable = ['name'];
     protected $fillable = [
                     'name',
                     'category_sub_group_id',

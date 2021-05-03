@@ -16,7 +16,7 @@ return [
     */
     'core' => [
         'minPhpVersion' => '7.2.0',
-        'maxPhpVersion' => '7.3.99'
+        'maxPhpVersion' => '7.4.99'
     ],
     'final' => [
         'key' => true,

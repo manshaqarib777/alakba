@@ -102,7 +102,7 @@
 			</div>
 		</div>
 
-		@if(Auth::user()->isMerchant())
+		@if(Auth::user()->isMerchant() && \App\SystemConfig::isPaymentConfigured('stripe'))
 			<div class="panel panel-default">
 				<div class="panel-body">
 					{!! Form::model($profile, ['method' => 'PUT', 'route' => ['admin.account.card.update'], 'id' => 'stripe-form', 'data-toggle' => 'validator']) !!}

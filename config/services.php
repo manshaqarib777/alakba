@@ -20,6 +20,11 @@ return [
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
+    //Mandrill Config
+    'mandrill' => [
+        'secret' => env('MAIL_PASSWORD'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -114,5 +119,8 @@ return [
         'secret' => env('PUSHER_APP_SECRET'),
         'cluster' => env('PUSHER_APP_CLUSTER'),
     ],
+    'fixer'=>[
+        'key'=>env("FIXER_ACCESS_KEY"),
+    ]
 
 ];

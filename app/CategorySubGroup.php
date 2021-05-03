@@ -5,10 +5,11 @@ namespace App;
 use App\Common\Imageable;
 use App\Common\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class CategorySubGroup extends BaseModel
 {
-    use SoftDeletes, CascadeSoftDeletes, Imageable;
+    use SoftDeletes, CascadeSoftDeletes, Imageable,HasTranslations;
 
     /**
      * The database table used by the model.
@@ -22,6 +23,8 @@ class CategorySubGroup extends BaseModel
      *
      * @var array
      */
+    public $translatable = ['name'];
+
     protected $fillable = ['name', 'category_group_id', 'slug', 'description', 'active', 'order', 'meta_title', 'meta_description'];
 
     /**

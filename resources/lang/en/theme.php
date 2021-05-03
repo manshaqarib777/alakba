@@ -684,4 +684,5 @@ return [
     'vendors' => 'Vendors',
     'all_brands' => 'All Brands',
     'all_shops' => 'All Vendors',
+    'sale_over' => 'Sorry! You\'ve missed the sale!',
 ];
