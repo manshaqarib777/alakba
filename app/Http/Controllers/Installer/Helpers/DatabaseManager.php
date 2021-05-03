@@ -1,0 +1,14 @@
+<?php
+/*   __________________________________________________
+    |  Obfuscated by YAK Pro - Php Obfuscator  2.0.1   |
+    |              on 2021-04-04 16:33:18              |
+    |    GitHub: https://github.com/pk-fr/yakpro-po    |
+    |__________________________________________________|
+*/
+/*
+* Copyright (C) Incevio Systems, Inc - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+* Written by Munna Khan <help.zcart@gmail.com>, September 2018
+*/
+ namespace App\Http\Controllers\Installer\Helpers; use Exception; use Illuminate\Database\SQLiteConnection; use Illuminate\Support\Facades\Artisan; use Illuminate\Support\Facades\Config; use Illuminate\Support\Facades\DB; use Symfony\Component\Console\Output\BufferedOutput; class DatabaseManager { public function migrateAndSeed() { $outputLog = new BufferedOutput(); $this->sqlite($outputLog); return $this->migrate($outputLog); } private function migrate($outputLog) { try { Artisan::call("\x6d\151\x67\162\141\164\x65", ["\55\55\x66\x6f\x72\143\145" => true], $outputLog); } catch (Exception $e) { return $this->response($e->getMessage(), "\145\x72\162\157\x72", $outputLog); } return $this->seed($outputLog); } private function seed($outputLog) { try { Artisan::call("\144\142\72\163\x65\145\144", ["\55\55\146\157\162\143\x65" => true], $outputLog); } catch (Exception $e) { return $this->response($e->getMessage(), "\x65\x72\162\157\x72", $outputLog); } return $this->response(trans("\151\156\x73\164\x61\154\154\x65\x72\137\155\x65\163\163\141\147\145\x73\56\146\151\x6e\141\154\56\x66\x69\x6e\x69\163\150\145\144"), "\163\165\x63\143\145\x73\163", $outputLog); } public function seedDemoData() { ini_set("\x6d\x61\x78\137\145\170\x65\143\x75\x74\151\157\x6e\137\x74\151\x6d\x65", 1200); $outputLog = new BufferedOutput(); try { Artisan::call("\x69\156\143\145\166\151\x6f\72\x64\x65\x6d\x6f"); } catch (Exception $e) { return $this->response($e->getMessage(), "\145\162\162\x6f\162", $outputLog); } return $this->response(trans("\151\156\163\x74\x61\154\154\x65\x72\x5f\x6d\145\163\x73\141\147\145\x73\56\x66\151\156\141\x6c\x2e\146\x69\x6e\151\163\x68\x65\144"), "\163\x75\143\x63\x65\x73\x73", $outputLog); } private function response($message, $status = "\x64\141\x6e\x67\145\x72", $outputLog) { return ["\x73\164\x61\164\x75\x73" => $status, "\x6d\x65\163\163\x61\147\145" => $message, "\144\142\x4f\165\x74\160\165\164\114\x6f\147" => $outputLog->fetch()]; } private function sqlite($outputLog) { if (!DB::connection() instanceof SQLiteConnection) { goto rOrHt; } $database = DB::connection()->getDatabaseName(); if (file_exists($database)) { goto JUnE5; } touch($database); DB::reconnect(Config::get("\144\141\x74\x61\142\141\163\x65\x2e\144\x65\146\x61\165\154\164")); JUnE5: $outputLog->write("\x55\x73\x69\156\147\x20\x53\x71\154\x4c\x69\164\x65\x20\144\x61\x74\x61\142\x61\163\145\x3a\40" . $database, 1); rOrHt: } }
