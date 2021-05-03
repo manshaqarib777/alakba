@@ -21,7 +21,7 @@
       <div class="help-block with-errors"></div>
     </div>
   </div>
-  <div class="col-md-6 nopadding-left">
+  <div class="col-md-6">
     <div class="form-group">
       {!! Form::label('order', trans('app.form.position'), ['class' => 'with-help']) !!}
       <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.display_order') }}"></i>
@@ -64,7 +64,7 @@
         <input id="uploadFile" placeholder="{{ trans('app.placeholder.category_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
         <div class="help-block with-errors">{{ trans('help.cover_img_size') }}</div>
       </div>
-      <div class="col-md-3 nopadding-left">
+      <div class="col-md-3">
         <div class="fileUpload btn btn-primary btn-block btn-flat">
             <span>{{ trans('app.form.upload') }} </span>
             <input type="file" name="images[cover]" id="uploadBtn" class="upload" />

@@ -20,7 +20,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6 nopadding-right">
+  <div class="col-md-6">
     <div class="form-group">
       {!! Form::label('slug', trans('app.form.slug').'*', ['class' => 'with-help']) !!}
       <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.slug') }}"></i>
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="col-md-3 nopadding-right">
+  <div class="col-md-3">
     <div class="form-group">
       {!! Form::label('active', trans('app.form.status').'*', ['class' => 'with-help']) !!}
       {!! Form::select('active', ['1' => 'Active', '0' => 'Inactive'], null, ['class' => 'form-control select2-normal', 'placeholder' => trans('app.placeholder.status'), 'required']) !!}
@@ -53,7 +53,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6 nopadding-right">
+  <div class="col-md-6">
     <div class="form-group" style="margin-bottom: 0px!important;">
       {!! Form::label('exampleInputFile', trans('app.form.cover_img'), ['class' => 'with-help']) !!}
       <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.cover_img', ['page' => trans('app.category')]) }}"></i>
@@ -64,7 +64,7 @@
         </span>
       @endif
     	<div class="row">
-          <div class="col-md-9 nopadding-right">
+          <div class="col-md-9">
             <input id="uploadFile" placeholder="{{ trans('app.placeholder.category_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
             <div class="help-block with-errors">{{ trans('help.cover_img_size') }}</div>
           </div>
@@ -89,7 +89,7 @@
         </span>
       @endif
     	<div class="row">
-          <div class="col-md-9 nopadding-right">
+          <div class="col-md-9">
             <input id="uploadFile1" placeholder="{{ trans('app.placeholder.category_featured_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
             <div class="help-block with-errors">{{ trans('help.featured_img_size') }}</div>
           </div>
