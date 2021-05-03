@@ -3,6 +3,7 @@
   {!! Form::select('category_group_id', $catGroups , null, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.category_group'), 'required']) !!}
   <div class="help-block with-errors"></div>
 </div>
+<div class="row">
 @foreach ($languages as $key => $value)
 <div class="col-md-6">
   <div class="form-group">
@@ -12,9 +13,9 @@
   </div>
 </div>  
 @endforeach
-
+</div>
 <div class="row">
-  <div class="col-md-6 nopadding-right">
+  <div class="col-md-6">
     <div class="form-group">
       {!! Form::label('active', trans('app.form.status').'*', ['class' => 'with-help']) !!}
       {!! Form::select('active', ['1' => 'Active', '0' => 'Inactive'], null, ['class' => 'form-control select2-normal', 'placeholder' => trans('app.placeholder.status'), 'required']) !!}
