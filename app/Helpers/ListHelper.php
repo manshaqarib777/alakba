@@ -366,7 +366,7 @@ class ListHelper
      */
     public static function thisCatSubGrps($category)
     {
-        return \DB::table('category_sub_groups')->where('deleted_at', Null)
+        return CategorySubGroup::where('deleted_at', Null)
         ->where('category_group_id', $category)->orderBy('name', 'asc')->pluck('name', 'id');
     }
 
