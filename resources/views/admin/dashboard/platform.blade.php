@@ -435,7 +435,7 @@
                               <span class="label label-outline">{{ $vendor->inventories_count }}</span>
                             </td>
                             <td>
-                              {{ get_formated_currency(round($vendor->revenue->first()['total'])) }}
+                              {{ get_formated_currency(round(@$vendor->revenue->first()['total'])) }}
                             </td>
                           </tr>
                         @empty

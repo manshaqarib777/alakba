@@ -57,7 +57,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6 nopadding-right">
+  {{-- <div class="col-md-6 nopadding-right">
     <div class="form-group">
       <div class="input-group">
         {{ Form::hidden('symbol_first', 0) }}
@@ -68,9 +68,9 @@
         </span>
       </div>
     </div>
-  </div>
+  </div> --}}
 
-  <div class="col-md-6 nopadding-left">
+  <div class="col-md-12">
     <div class="form-group">
       <div class="input-group">
         {{ Form::hidden('active', 0) }}

@@ -570,6 +570,27 @@
 											@endif
 										</div>
 								  	</div>
+
+									  <div class="row">
+								    	<div class="col-sm-7 text-right">
+											<div class="form-group">
+										        {!! Form::label('symbol_first', trans('app.symbol_first'). ':', ['class' => 'with-help control-label']) !!}
+											  	<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_symbol_first') }}"></i>
+											</div>
+										</div>
+
+								    	<div class="col-sm-4">
+									  		@if($can_update)
+											  	<div class="handle horizontal text-center">
+													<a href="javascript:void(0)" data-link="{{ route('admin.setting.system.config.toggle', 'symbol_first') }}" type="button" class="btn btn-md btn-secondary btn-toggle {{ $system->symbol_first ? 'active' : '' }}" data-toggle="button" aria-pressed="{{ $system->symbol_first ? 'true' : 'false' }}" autocomplete="off">
+														<div class="btn-handle"></div>
+													</a>
+											  	</div>
+											@else
+												<span>{{ $system->symbol_first ? trans('app.on') : trans('app.off') }}</span>
+											@endif
+										</div>
+								  	</div>
 								    <!-- /.row -->
 							    	<div class="row">
 								    	<div class="col-sm-7 text-right">
@@ -605,36 +626,11 @@
 									    	    {!! Form::number('coupon_code_size', $system->coupon_code_size, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.coupon_code_size'), 'required']) !!}
 										      	<div class="help-block with-errors"></div>
 											@else
-												<span>{{ $system->coupon_code_size }}</span>
+												<span>{{ @$system->coupon_code_size }}</span>
 											@endif
 									  	</div>
 									</div>
 
-									{{-- <div class="form-group">
-								        {!! Form::label('gift_card_pin_size', '*' . trans('app.config_gift_card_pin_size'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
-									  	<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_gift_card_pin_size') }}"></i>
-									  	<div class="col-sm-4 nopadding-left">
-									  		@if($can_update)
-									    	    {!! Form::number('gift_card_pin_size', $system->gift_card_pin_size, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.gift_card_pin_size'), 'required']) !!}
-										      	<div class="help-block with-errors"></div>
-											@else
-												<span>{{ $system->gift_card_pin_size }}</span>
-											@endif
-									  	</div>
-									</div>
-
-									<div class="form-group">
-								        {!! Form::label('gift_card_serial_number_size', '*' . trans('app.gift_card_serial_number_size'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
-									  	<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_gift_card_serial_number_size') }}"></i>
-									  	<div class="col-sm-4 nopadding-left">
-									  		@if($can_update)
-									    	    {!! Form::number('gift_card_serial_number_size', $system->gift_card_serial_number_size, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.gift_card_serial_number_size'), 'required']) !!}
-										      	<div class="help-block with-errors"></div>
-											@else
-												<span>{{ $system->gift_card_serial_number_size }}</span>
-											@endif
-									  	</div>
-									</div>--}}
 								</fieldset>
 					    	</div>
 					    	<div class="col-sm-12">
@@ -668,7 +664,7 @@
 								@else
 						    		<p class="lead">{{ $type }}</p>
 								@endif
-					    		<p>{!! get_payment_method_type($type_id)['admin_description'] !!}</p>
+					    		<p>{!! @get_payment_method_type($type_id)['admin_description'] !!}</p>
 					    	</div>
 					    	<div class="col-sm-6">
 				    			@foreach($payment_providers as $payment_provider)
