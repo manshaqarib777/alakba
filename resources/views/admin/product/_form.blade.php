@@ -11,16 +11,18 @@
       </div> <!-- /.box-header -->
       <div class="box-body">
         <div class="row">
-          <div class="col-md-9 nopadding-right">
+          @foreach ($languages as $key => $value)
+          <div class="col-md-6">
             <div class="form-group">
-              {!! Form::label('name', trans('app.form.name').'*', ['class' => 'with-help']) !!}
-              <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.product_name') }}"></i>
-              {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.title'), 'required']) !!}
+              {!! Form::label('name', trans('app.form.name').'* ('.$value.')') !!}
+              <input type="text" name="name[{{$key}}]" value="{{isset($product) ? $product->getTranslation('name', $key):''}}" class = "form-control makeSlug" placeholder="{{trans('app.placeholder.title')}}" required />
               <div class="help-block with-errors"></div>
             </div>
-          </div>
+          </div>  
+          @endforeach
 
-          <div class="col-md-3 nopadding-left">
+
+          <div class="col-md-3">
             <div class="form-group">
               {!! Form::label('active', trans('app.form.status').'*', ['class' => 'with-help']) !!}
               <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.product_active') }}"></i>
@@ -46,7 +48,7 @@
               {!! Form::text('gtin', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.gtin')]) !!}
             </div>
           </div>
-          <div class="col-md-4 nopadding-left">
+          <div class="col-md-4">
             <div class="form-group">
               {!! Form::label('gtin_type', trans('app.form.gtin_type'), ['class' => 'with-help']) !!}
               {!! Form::select('gtin_type', $gtin_types , null, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.gtin_type')]) !!}
@@ -88,7 +90,7 @@
     </div>
   </div>
 
-  <div class="col-md-4 nopadding-left">
+  <div class="col-md-4">
     <div class="box">
       <div class="box-header with-border">
           <h3 class="box-title">{{ trans('app.organization') }}</h3>
@@ -148,7 +150,7 @@
                     <div class="help-block with-errors"></div>
                 </div>
               </div>
-              <div class="col-md-6 nopadding-left">
+              <div class="col-md-6">
                 <div class="form-group">
                   {!! Form::label('max_price', trans('app.form.catalog_max_price'), ['class' => 'with-help']) !!}
                   <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.catalog_max_price') }}"></i>
@@ -181,7 +183,7 @@
             <div class="col-md-9 nopadding-right">
                <input id="uploadFile" placeholder="{{ trans('app.featured_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
               </div>
-              <div class="col-md-3 nopadding-left">
+              <div class="col-md-3">
                 <div class="fileUpload btn btn-primary btn-block btn-flat">
                     <span>{{ trans('app.form.upload') }} </span>
                     <input type="file" name="images[feature]" id="uploadBtn" class="upload" />

@@ -10,10 +10,11 @@ use Laravel\Scout\Searchable;
 use App\Common\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletes;
 // use Incevio\Package\Inspector\Traits\HasInspector;
+use Spatie\Translatable\HasTranslations;
 
 class Product extends BaseModel
 {
-    use SoftDeletes, CascadeSoftDeletes, Taggable, Imageable, Searchable, Feedbackable;
+    use SoftDeletes, CascadeSoftDeletes, Taggable, Imageable, Searchable, Feedbackable,HasTranslations;
     // use SoftDeletes, CascadeSoftDeletes, Taggable, Imageable, Searchable, Feedbackable, HasInspector;
 
     /**
@@ -28,6 +29,7 @@ class Product extends BaseModel
      *
      * @var array
      */
+    public $translatable = ['name'];
     protected $cascadeDeletes = ['inventories'];
 
     /**
