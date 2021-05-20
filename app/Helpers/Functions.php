@@ -1029,13 +1029,13 @@ if (! function_exists('get_formated_price'))
 
 if (! function_exists('get_formated_price_for_products'))
 {
-    function get_formated_price_for_products($value = 0, $decimal = null,$symbol)
+    function get_formated_price_for_products($value = 0, $decimal = null,$currency)
     {
         if (in_array(get_system_currency(), config('system.non_decimal_currencies'))) {
             $decimal = 0;
         }
 
-        $price = get_formated_currency_for_products($value, $decimal,$symbol);
+        $price = get_formated_currency_for_products($value, $decimal,$currency);
 
         if($decimal == 0) {
             return $price;
@@ -1067,7 +1067,7 @@ if (! function_exists('get_formated_currency'))
 
 if (! function_exists('get_formated_currency_for_orders'))
 {
-    function get_formated_currency_for_orders($value = 0, $decimal = null,$input=NULL,$symbol=NULL)
+    function get_formated_currency_for_orders($value = 0, $decimal = null,$input=NULL,$currency=NULL)
     {
         if ($decimal && in_array(get_system_currency(), config('system.non_decimal_currencies'))) {
             $decimal = Null;
@@ -1075,22 +1075,47 @@ if (! function_exists('get_formated_currency_for_orders'))
 
         $value =  get_formated_decimal($value, $decimal ? false : true, $decimal);
 
-        return get_currency_prefix_for_orders($symbol) . $value . get_currency_suffix_for_orders($symbol);
+        if($currency!=null)
+        {
+            $currency=Currency::where('iso_code',$currency->iso_code)->first();
+        } 
+        else
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            return get_currency_prefix() . $value . get_currency_suffix();
+        }
+
+        return get_currency_prefix_for_orders($currency) . $value . get_currency_suffix_for_orders($currency);
+
     }
 }
 
 if (! function_exists('get_formated_currency_for_products'))
 {
-    function get_formated_currency_for_products($value = 0, $decimal = null,$input=NULL,$symbol=NULL)
+    function get_formated_currency_for_products($value = 0, $decimal = null,$input=NULL,$currency=NULL)
     {
         if ($decimal && in_array(get_system_currency(), config('system.non_decimal_currencies'))) {
             $decimal = Null;
         }
 
         $value =  get_formated_decimal($value, $decimal ? false : true, $decimal);
-        $currency=Currency::where('iso_code',session()->get('currency'))->first();
-
-        return get_currency_prefix_for_products($currency->symbol) . ($value * $currency->exchange_rate) . get_currency_suffix_for_products($currency->symbol);
+        if($currency!=null)
+        {
+            $currency=Currency::where('iso_code',$currency->iso_code)->first();
+        } 
+        else
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            return get_currency_prefix() . $value . get_currency_suffix();
+        }
+        
+        return get_currency_prefix_for_products($currency) . ($value * $currency->exchange_rate) . get_currency_suffix_for_products($currency);
     }
 }
 
@@ -1099,25 +1124,44 @@ if (! function_exists('get_current_currency'))
     function get_current_currency()
     {
         $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        if($currency==null)
+        {
+            $currency=config('system_settings.currency');
+        }
+        dd($currency);
         return $currency->exchange_rate;
     }
 }
 
 if (! function_exists('get_currency_prefix_for_products'))
 {
-    function get_currency_prefix_for_products($symbol=null)
+    function get_currency_prefix_for_products($currency=null)
     {
-        $currency=Currency::where('iso_code',session()->get('currency'))->first();
-        return config('system_settings.symbol_first') ? get_formated_currency_symbol_for_products($currency->symbol) : '';
+        if($currency!=null)
+        {
+            $currency=Currency::where('iso_code',$currency->iso_code)->first();
+        } 
+        else
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        } 
+        return $currency->symbol_first ? get_formated_currency_symbol_for_products($currency->symbol) : '';
     }
 }
 
 if (! function_exists('get_currency_suffix_for_products'))
 {
-    function get_currency_suffix_for_products($symbol=null)
+    function get_currency_suffix_for_products($currency=null)
     {
-        $currency=Currency::where('iso_code',session()->get('currency'))->first();
-        return config('system_settings.symbol_first') ? '' : get_formated_currency_symbol_for_products($currency->symbol);
+        if($currency!=null)
+        {
+            $currency=Currency::where('iso_code',$currency->iso_code)->first();
+        } 
+        else
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        return $currency->symbol_first ? '' : get_formated_currency_symbol_for_products($currency->symbol);
     }
 }
 
@@ -1125,17 +1169,42 @@ if (! function_exists('get_currency_suffix_for_products'))
 
 if (! function_exists('get_currency_prefix_for_orders'))
 {
-    function get_currency_prefix_for_orders($symbol=null)
+    function get_currency_prefix_for_orders($currency=null)
     {
-        return config('system_settings.symbol_first') ? get_formated_currency_symbol_for_orders($symbol) : '';
+        
+        if($currency!=null)
+        {
+            $currency=Currency::where('iso_code',$currency->iso_code)->first();
+        } 
+        else
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            return get_currency_prefix() . $value . get_currency_suffix();
+        } 
+        return $currency->symbol_first ? get_formated_currency_symbol_for_orders($currency->symbol) : '';
     }
 }
 
 if (! function_exists('get_currency_suffix_for_orders'))
 {
-    function get_currency_suffix_for_orders($symbol=null)
+    function get_currency_suffix_for_orders($currency=null)
     {
-        return config('system_settings.symbol_first') ? '' : get_formated_currency_symbol_for_orders($symbol);
+        if($currency!=null)
+        {
+            $currency=Currency::where('iso_code',$currency->iso_code)->first();
+        } 
+        else
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            return get_currency_prefix() . $value . get_currency_suffix();
+        }
+        return $currency->symbol_first ? '' : get_formated_currency_symbol_for_orders($currency->symbol);
     }
 }
 
@@ -1143,7 +1212,15 @@ if (! function_exists('get_currency_prefix'))
 {
     function get_currency_prefix()
     {
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            return $currency->symbol_first ? get_formated_currency_symbol() : '';
+
+        }
         return config('system_settings.symbol_first') ? get_formated_currency_symbol() : '';
+
+        
     }
 }
 
@@ -1151,6 +1228,11 @@ if (! function_exists('get_currency_suffix'))
 {
     function get_currency_suffix()
     {
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            return $currency->symbol_first ? '' : get_formated_currency_symbol();
+        }
         return config('system_settings.symbol_first') ? '' : get_formated_currency_symbol();
     }
 }
