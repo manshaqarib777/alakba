@@ -480,62 +480,7 @@
 			    <div class="tab-pane" id="formats_tab">
 			    	<div class="row">
 				        {!! Form::model($system, ['method' => 'PUT', 'route' => ['admin.setting.system.update'], 'files' => true, 'id' => 'form2', 'class' => 'form-horizontal ajax-form', 'data-toggle' => 'validator']) !!}
-					    	<div class="col-sm-6">
-					    		{{-- <fieldset>
-					    			<legend>{{ trans('app.config_date_and_time') }}</legend>
-									<div class="form-group">
-								        {!! Form::label('date_format', '*' . trans('app.date_format'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
-									  	<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.system_date_format') }}"></i>
-									  	<div class="col-sm-4 nopadding-left">
-									  		@if($can_update)
-											    {!! Form::select('date_format', ['YYYY-MM-DD' => 'YYYY-MM-DD', 'DD-MM-YYYY' => 'DD-MM-YYYY', 'MM-DD-YYYY' => 'MM-DD-YYYY'], $system->date_format, ['class' => 'form-control select2-normal', 'required']) !!}
-										      	<div class="help-block with-errors"></div>
-											@else
-												<span>{{ $system->date_format }}</span>
-											@endif
-									  	</div>
-									</div>
-
-									<div class="form-group">
-								        {!! Form::label('date_separator', '*' . trans('app.date_separator'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
-									  	<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_date_separator') }}"></i>
-									  	<div class="col-sm-4 nopadding-left">
-									  		@if($can_update)
-											    {!! Form::select('date_separator', ['.' => '.', '-' => '-', '/' => '/'], $system->date_separator, ['class' => 'form-control select2-normal', 'placeholder' => trans('app.placeholder.select'), 'required']) !!}
-										      	<div class="help-block with-errors"></div>
-											@else
-												<span>{{ $system->date_separator }}</span>
-											@endif
-									  	</div>
-									</div>
-
-									<div class="form-group">
-								        {!! Form::label('time_format', '*' . trans('app.time_format'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
-									  	<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.system_time_format') }}"></i>
-									  	<div class="col-sm-4 nopadding-left">
-									  		@if($can_update)
-											    {!! Form::select('time_format', ['12h' => '12h', '24h' => '24h'], $system->time_format, ['class' => 'form-control select2-normal', 'required']) !!}
-										      	<div class="help-block with-errors"></div>
-											@else
-												<span>{{ $system->time_format }}</span>
-											@endif
-									  	</div>
-									</div>
-
-									<div class="form-group">
-								        {!! Form::label('time_separator', '*' . trans('app.time_separator'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
-									  	<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_time_separator') }}"></i>
-									  	<div class="col-sm-4 nopadding-left">
-									  		@if($can_update)
-											    {!! Form::select('time_separator', ['.' => '.', ':' => ':'], $system->time_separator, ['class' => 'form-control select2-normal', 'placeholder' => trans('app.placeholder.select'), 'required']) !!}
-										      	<div class="help-block with-errors"></div>
-											@else
-												<span>{{ $system->time_separator }}</span>
-											@endif
-									  	</div>
-									</div>
-					    		</fieldset> --}}
-
+					    	{{-- <div class="col-sm-6">
 					    		<fieldset>
 					    			<legend>{{ trans('app.config_currency') }}</legend>
 									<div class="form-group">
@@ -613,7 +558,7 @@
 								  	</div>
 								    <!-- /.row -->
 								</fieldset>
-					    	</div>
+					    	</div> --}}
 
 					    	<div class="col-sm-6">
 					    		<fieldset>

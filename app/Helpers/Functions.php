@@ -139,11 +139,20 @@ if (! function_exists('get_currency_symbol'))
 {
     function get_currency_symbol()
     {
+        $currency=null;
         if(isset(auth()->user()->shop_id))
         {
             return auth()->user()->shop->currency->symbol;
         }
-        return config('system_settings.currency.symbol', '$');
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        return $currency->symbol;
     }
 }
 
@@ -982,14 +991,22 @@ if (! function_exists('format_to_number'))
 
 if (! function_exists('get_formated_decimal'))
 {
-    function get_formated_decimal($value = 0, $trim = true, $decimal = 0)
+    function get_formated_decimal($value = 0, $trim = true, $decimal = 0,$currency=null)
     {
         // if (! $decimal )
         //     $decimal = $decimal == 0 ? 0 : config('system_settings.decimals', 2);
 
-        $decimal_mark = config('system_settings.currency.decimal_mark', '.');
+        if($currency==null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        $decimal_mark =$currency->decimal_mark;
 
-        $value = number_format($value, $decimal, $decimal_mark, config('system_settings.currency.thousands_separator', ','));
+        $value = number_format($value, $decimal, $decimal_mark, $currency->thousands_separator);
 
         if ($trim) {
             $arr = explode($decimal_mark, $value);
@@ -1073,7 +1090,7 @@ if (! function_exists('get_formated_currency_for_orders'))
             $decimal = Null;
         }
 
-        $value =  get_formated_decimal($value, $decimal ? false : true, $decimal);
+        $value =  get_formated_decimal($value, $decimal ? false : true, $decimal,$currency);
 
         if($currency==null)
         {
@@ -1096,7 +1113,7 @@ if (! function_exists('get_formated_currency_for_products'))
         if ($decimal && in_array(get_system_currency(), config('system.non_decimal_currencies'))) {
             $decimal = Null;
         }
-        $value =  get_formated_decimal($value, $decimal ? false : true, $decimal);
+        $value =  get_formated_decimal($value, $decimal ? false : true, $decimal,$currency);
         if($currency==null)
         {
             $currency=Currency::where('iso_code',session()->get('currency'))->first();
@@ -1135,7 +1152,7 @@ if (! function_exists('get_currency_prefix_for_products'))
         {
             $currency= (object)config('system_settings.currency');
         } 
-        return $currency->symbol_first ? get_formated_currency_symbol_for_products($currency->symbol) : '';
+        return $currency->symbol_first ? get_formated_currency_symbol_for_products($currency) : '';
     }
 }
 
@@ -1151,7 +1168,7 @@ if (! function_exists('get_currency_suffix_for_products'))
         {
             $currency= (object)config('system_settings.currency');
         }
-        return $currency->symbol_first ? '' : get_formated_currency_symbol_for_products($currency->symbol);
+        return $currency->symbol_first ? '' : get_formated_currency_symbol_for_products($currency);
     }
 }
 
@@ -1170,7 +1187,7 @@ if (! function_exists('get_currency_prefix_for_orders'))
         {
             $currency= (object)config('system_settings.currency');
         } 
-        return $currency->symbol_first ? get_formated_currency_symbol_for_orders($currency->symbol) : '';
+        return $currency->symbol_first ? get_formated_currency_symbol_for_orders($currency) : '';
     }
 }
 
@@ -1186,7 +1203,7 @@ if (! function_exists('get_currency_suffix_for_orders'))
         {
             $currency= (object)config('system_settings.currency');
         }
-        return $currency->symbol_first ? '' : get_formated_currency_symbol_for_orders($currency->symbol);
+        return $currency->symbol_first ? '' : get_formated_currency_symbol_for_orders($currency);
     }
 }
 
@@ -1197,10 +1214,10 @@ if (! function_exists('get_currency_prefix'))
         if(session()->get('currency')!=null)
         {
             $currency=Currency::where('iso_code',session()->get('currency'))->first();
-            return $currency->symbol_first ? get_formated_currency_symbol() : '';
+            return $currency->symbol_first ? get_formated_currency_symbol($currency) : '';
 
         }
-        return config('system_settings.symbol_first') ? get_formated_currency_symbol() : '';
+        return config('system_settings.currency.symbol_first') ? get_formated_currency_symbol(config('system_settings.currency')) : '';
 
         
     }
@@ -1213,60 +1230,84 @@ if (! function_exists('get_currency_suffix'))
         if(session()->get('currency')!=null)
         {
             $currency=Currency::where('iso_code',session()->get('currency'))->first();
-            return $currency->symbol_first ? '' : get_formated_currency_symbol();
+            return $currency->symbol_first ? '' : get_formated_currency_symbol($currency);
         }
-        return config('system_settings.symbol_first') ? '' : get_formated_currency_symbol();
+        return config('system_settings.currency.symbol_first') ? '' : get_formated_currency_symbol(config('system_settings.currency'));
     }
 }
 
 
 if (! function_exists('get_formated_currency_symbol'))
 {
-    function get_formated_currency_symbol()
+    function get_formated_currency_symbol($currency=null)
     {
-        if ( config('system_settings.show_currency_symbol')) {
-
-            if ( config('system_settings.symbol_first')) {
-                return get_currency_symbol() . (config('system_settings.show_space_after_symbol') ? ' ' : '');
-            }
-
-            return (config('system_settings.show_space_after_symbol') ? ' ' : '') . get_currency_symbol();
+        if($currency==null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
         }
-
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        $currency= (object)$currency;
+        //dd($currency);
+        if ( $currency->show_currency_symbol) {
+            if ($currency->symbol_first) {
+                return get_currency_symbol() . ($currency->show_space_after_symbol ? ' ' : '');
+            }                
+            return ($currency->show_space_after_symbol ? ' ' : '') . get_currency_symbol();
+        }
         return '';
     }
 }
 
 if (! function_exists('get_formated_currency_symbol_for_products'))
 {
-    function get_formated_currency_symbol_for_products($symbol)
+    function get_formated_currency_symbol_for_products($currency)
     {
-        if ( config('system_settings.show_currency_symbol')) {
 
-            if ( config('system_settings.symbol_first')) {
-                return get_currency_symbol_for_products($symbol) . (config('system_settings.show_space_after_symbol') ? ' ' : '');
-            }
-
-            return (config('system_settings.show_space_after_symbol') ? ' ' : '') . get_currency_symbol_for_products($symbol);
+        if($currency==null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
         }
-
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        $currency= (object)$currency;
+        //dd($currency);
+        if ( $currency->show_currency_symbol) {
+            if ($currency->symbol_first) {
+                return get_currency_symbol_for_products($currency->symbol) . ($currency->show_space_after_symbol ? ' ' : '');
+            }                
+            return ($currency->show_space_after_symbol ? ' ' : '') . get_currency_symbol_for_products($currency->symbol);
+        }
         return '';
     }
 }
 
 if (! function_exists('get_formated_currency_symbol_for_orders'))
 {
-    function get_formated_currency_symbol_for_orders($symbol)
+    function get_formated_currency_symbol_for_orders($currency)
     {
-        if ( config('system_settings.show_currency_symbol')) {
 
-            if ( config('system_settings.symbol_first')) {
-                return get_currency_symbol_for_orders($symbol) . (config('system_settings.show_space_after_symbol') ? ' ' : '');
-            }
 
-            return (config('system_settings.show_space_after_symbol') ? ' ' : '') . get_currency_symbol_for_orders($symbol);
+        if($currency==null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
         }
-
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        $currency= (object)$currency;
+        //dd($currency);
+        if ( $currency->show_currency_symbol) {
+            if ($currency->symbol_first) {
+                return get_currency_symbol_for_orders($currency->symbol) . ($currency->show_space_after_symbol ? ' ' : '');
+            }                
+            return ($currency->show_space_after_symbol ? ' ' : '') . get_currency_symbol_for_products($currency->symbol);
+        }
         return '';
     }
 }

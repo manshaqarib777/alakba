@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Currency;
 class DisputeResource extends JsonResource
 {
     /**
@@ -14,6 +14,14 @@ class DisputeResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
         return [
             'id' => $this->id,
             'reason' => $this->dispute_type->detail,
@@ -23,7 +31,7 @@ class DisputeResource extends JsonResource
             'goods_received' => $this->order_received,
             'return_goods' => $this->return_goods,
             'status' => $this->statusName(true),
-            'refund_amount' => $this->refund_amount ? get_formated_currency($this->refund_amount, config('system_settings.decimals', 2)): null,
+            'refund_amount' => $this->refund_amount ? get_formated_currency($this->refund_amount, $currency->decimals): null,
             'refund_amount_raw' => $this->refund_amount,
             'updated_at' => $this->updated_at->diffForHumans(),
             'shop' => new ShopLightResource($this->shop),

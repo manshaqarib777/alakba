@@ -117,7 +117,7 @@
           <li class="dropdown tasks-menu" id="wallet-dropdown">
             <a href="{{ route(config('wallet.routes.wallet')) }}">
               <span>{{ trans('wallet::lang.balance') }}: </span>
-              {{ get_formated_currency(Auth::user()->shop->balance, config('system_settings.decimals', 2)) }}
+              {{ get_formated_currency(Auth::user()->shop->balance, Auth::user()->shop->currency->decimals) }}
             </a>
           </li>
         @endif

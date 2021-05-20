@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Currency;
 class OrderResource extends JsonResource
 {
     /**
@@ -14,6 +14,14 @@ class OrderResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
         return [
             'id' => $this->id,
             'order_number' => $this->order_number,
@@ -35,13 +43,13 @@ class OrderResource extends JsonResource
             'shipping_weight' => get_formated_weight($this->shipping_weight),
             'packaging_id' => $this->packaging_id,
             'coupon_id' => $this->coupon_id,
-            'total' => get_formated_currency($this->total, config('system_settings.decimals', 2)),
-            'shipping' => get_formated_currency($this->shipping, config('system_settings.decimals', 2)),
-            'packaging' => $this->packaging ? get_formated_currency($this->packaging, config('system_settings.decimals', 2)) : Null,
-            'handling' => $this->handling ? get_formated_currency($this->handling, config('system_settings.decimals', 2)) : Null,
-            'taxes' => $this->taxes ? get_formated_currency($this->taxes, config('system_settings.decimals', 2)) : Null,
-            'discount' => $this->discount ? get_formated_currency($this->discount, config('system_settings.decimals', 2)) : Null,
-            'grand_total' => get_formated_currency($this->grand_total, config('system_settings.decimals', 2)),
+            'total' => get_formated_currency($this->total, $currency->decimals),
+            'shipping' => get_formated_currency($this->shipping, $currency->decimals),
+            'packaging' => $this->packaging ? get_formated_currency($this->packaging, $currency->decimals) : Null,
+            'handling' => $this->handling ? get_formated_currency($this->handling, $currency->decimals) : Null,
+            'taxes' => $this->taxes ? get_formated_currency($this->taxes, $currency->decimals) : Null,
+            'discount' => $this->discount ? get_formated_currency($this->discount, $currency->decimals) : Null,
+            'grand_total' => get_formated_currency($this->grand_total, $currency->decimals),
             'taxrate' => $this->taxrate,
             'order_date' => date('F j, Y', strtotime($this->created_at)),
             'shipping_date' => $this->shipping_date ? date('F j, Y', strtotime($this->shipping_date)) : Null,

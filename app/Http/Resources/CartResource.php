@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Currency;
 
 class CartResource extends JsonResource
 {
@@ -14,6 +15,14 @@ class CartResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
         return [
             'id' => $this->id,
             'customer_id' => $this->customer_id,
@@ -33,14 +42,14 @@ class CartResource extends JsonResource
                 'amount' => get_formated_currency($this->discount),
                 'label' => trans('app.coupon_applied', ['coupon' => $this->coupon->name]),
             ] : Null,
-            'total' => get_formated_currency($this->total, config('system_settings.decimals', 2)),
-            'shipping' => get_formated_currency($this->shipping, config('system_settings.decimals', 2)),
-            'packaging' => get_formated_currency($this->packaging, config('system_settings.decimals', 2)),
-            'handling' => get_formated_currency($this->handling, config('system_settings.decimals', 2)),
-            'taxrate' => get_formated_decimal($this->taxrate, true, config('system_settings.decimals', 2)) . '%',
-            'taxes' => get_formated_currency($this->taxes, config('system_settings.decimals', 2)),
-            'discount' => get_formated_currency($this->discount, config('system_settings.decimals', 2)),
-            'grand_total' => get_formated_currency($this->grand_total, config('system_settings.decimals', 2)),
+            'total' => get_formated_currency($this->total, $currency->decimals),
+            'shipping' => get_formated_currency($this->shipping, $currency->decimals),
+            'packaging' => get_formated_currency($this->packaging, $currency->decimals),
+            'handling' => get_formated_currency($this->handling, $currency->decimals),
+            'taxrate' => get_formated_decimal($this->taxrate, true, $currency->decimals) . '%',
+            'taxes' => get_formated_currency($this->taxes, $currency->decimals),
+            'discount' => get_formated_currency($this->discount, $currency->decimals),
+            'grand_total' => get_formated_currency($this->grand_total, $currency->decimals),
             'label' => $this->getLabelText(),
             'shop' => new ShopLightResource($this->shop),
             'items' => OrderItemResource::collection($this->inventories),

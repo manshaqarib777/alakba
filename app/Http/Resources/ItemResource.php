@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Helpers\ListHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Currency;
 class ItemResource extends JsonResource
 {
     /**
@@ -15,6 +15,14 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
         return [
             'id' => $this->id,
             'slug' => $this->slug,
@@ -30,8 +38,8 @@ class ItemResource extends JsonResource
             'raw_price' => $this->current_sale_price(),
             'currency' => get_system_currency(),
             'currency_symbol' => get_currency_symbol(),
-            'price' => get_formated_currency($this->sale_price, config('system_settings.decimals', 2)),
-            'offer_price' => $this->hasOffer() ? get_formated_currency($this->offer_price, config('system_settings.decimals', 2)) : Null,
+            'price' => get_formated_currency($this->sale_price, $currency->decimals),
+            'offer_price' => $this->hasOffer() ? get_formated_currency($this->offer_price, $currency->decimals) : Null,
             'discount' => $this->hasOffer() ? trans('theme.percent_off', ['value' => $this->discount_percentage()]) : Null,
             'offer_start' => $this->hasOffer() ? (string) $this->offer_start : Null,
             'offer_end' => $this->hasOffer() ? (string) $this->offer_end : Null,

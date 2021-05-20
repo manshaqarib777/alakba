@@ -195,6 +195,9 @@ if (! function_exists('setSystemCurrency'))
                 'thousands_separator' => $currency->thousands_separator,
                 'subunit' => $currency->subunit,
                 'exchange_rate' => $currency->exchange_rate,
+                'show_currency_symbol' => $currency->show_currency_symbol,
+                'show_space_after_symbol' => $currency->show_space_after_symbol,
+                'decimals' => $currency->decimals,
             ]
         ]);
     }

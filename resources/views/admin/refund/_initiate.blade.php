@@ -54,7 +54,7 @@
                     <span class="input-group-addon">
                         {{ config('system_settings.currency_symbol') ?: '$' }}
                     </span>
-                    {!! Form::number('amount', isset($order) && $order->dispute && $order->dispute->refund_amount ? get_formated_decimal($order->dispute->refund_amount, true, config('system_settings.decimals', 2)) : null, ['class' => 'form-control', 'step' => 'any', 'placeholder' => trans('app.placeholder.refund_amount'), 'required']) !!}
+                    {!! Form::number('amount', isset($order) && $order->dispute && $order->dispute->refund_amount ? get_formated_decimal($order->dispute->refund_amount, true, $order->shop->currency->decimals) : null, ['class' => 'form-control', 'step' => 'any', 'placeholder' => trans('app.placeholder.refund_amount'), 'required']) !!}
                 </div>
                 <div class="help-block with-errors">
                   @if(isset($order))

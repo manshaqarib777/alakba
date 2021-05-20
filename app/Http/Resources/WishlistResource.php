@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Currency;
 class WishlistResource extends JsonResource
 {
     /**
@@ -14,6 +14,14 @@ class WishlistResource extends JsonResource
      */
     public function toArray($request)
     {
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+        }
+        if($currency==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
         return [
             'id' => $this->id,
             'listing_id' => $this->inventory_id,
@@ -25,8 +33,8 @@ class WishlistResource extends JsonResource
             'raw_price' => $this->inventory->current_sale_price(),
             'currency' => get_system_currency(),
             'currency_symbol' => get_currency_symbol(),
-            'price' => get_formated_currency($this->inventory->sale_price, config('system_settings.decimals', 2)),
-            'offer_price' => get_formated_currency($this->inventory->offer_price, config('system_settings.decimals', 2)),
+            'price' => get_formated_currency($this->inventory->sale_price, $currency->decimals),
+            'offer_price' => get_formated_currency($this->inventory->offer_price, $currency->decimals),
             'discount' => trans('theme.percent_off', ['value' => $this->inventory->discount_percentage()]),
             'offer_start' => (string) $this->inventory->offer_start,
             'offer_end' => (string) $this->inventory->offer_end,

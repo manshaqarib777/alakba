@@ -57,6 +57,15 @@ class Currency extends BaseModel
     {
         $this->attributes['symbol_first'] = (bool) $value;
     }
+    public function setShowSpaceAfterSymbolAttribute($value)
+    {
+        $this->attributes['show_space_after_symbol'] = (bool) $value;
+    }
+    public function setShowCurrencySymbolAttribute($value)
+    {
+        $this->attributes['show_currency_symbol'] = (bool) $value;
+    }
+
    // public function setAlternateSymbolsAttribute($value)
     // {
     //     $this->attributes['alternate_symbols'] = serialize($value);

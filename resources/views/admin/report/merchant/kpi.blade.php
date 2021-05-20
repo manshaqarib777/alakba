@@ -1,5 +1,15 @@
 @extends('admin.layouts.master')
 
+@php
+  if(session()->get('currency')!=null)
+  {
+      $currency=\App\Currency::where('iso_code',session()->get('currency'))->first();
+  }
+  if($currency==null)
+  {
+      $currency= (object)config('system_settings.currency');
+  }
+@endphp
 @section('content')
   <!-- Info boxes -->
   <div class="row">
@@ -125,11 +135,11 @@
                 </tr>
                 <tr>
                   <td>{{ trans('app.discounts') }}</td>
-                  <td class="pull-right">-{{ get_formated_currency($discount_total, config('system_settings.decimals')) }}</td>
+                  <td class="pull-right">-{{ get_formated_currency($discount_total, $currency->decimals) }}</td>
                 </tr>
                 <tr>
                   <td>{{ trans('app.refunds') }}</td>
-                  <td class="pull-right">-{{ get_formated_currency($latest_refund_total, config('system_settings.decimals')) }}</td>
+                  <td class="pull-right">-{{ get_formated_currency($latest_refund_total, $currency->decimals) }}</td>
                 </tr>
                 <tr>
                   <td>{{ trans('app.net_sales') }}</td>

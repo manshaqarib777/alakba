@@ -382,7 +382,19 @@
 }(window.jQuery, window, document));
 
 // Helpers
-function getFormatedValue(value = 0, dec = {{config('system_settings.decimals', 2)}})
+@php
+    $currency=null;
+    if(session()->get('currency')!=null)
+    {
+        $currency=\App\Currency::where('iso_code',session()->get('currency'))->first();
+    }
+    if($currency==null)
+    {
+        $currency= (object)config('system_settings.currency');
+    }
+@endphp
+var decimals={{isset($currency->decimals) ? $currency->decimals : 2}};
+function getFormatedValue(value = 0, dec = decimals)
 {
 
     value = value ? value : 0;
