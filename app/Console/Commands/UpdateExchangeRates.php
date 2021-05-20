@@ -45,6 +45,7 @@ class UpdateExchangeRates extends Command
     {
         try {
             $exchange = new Exchange();
+            $exchange->key("d37b4338d28af08918eead41c692cea4");
             $rates = $exchange->get();
 
             $currencies =  Currency::all();

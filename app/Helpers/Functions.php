@@ -1106,7 +1106,7 @@ if (! function_exists('get_formated_currency_for_products'))
             $currency= (object)config('system_settings.currency');
         }
         //dd($currency);
-        return get_currency_prefix_for_products($currency) . ($value * $currency->exchange_rate) . get_currency_suffix_for_products($currency);
+        return get_currency_prefix_for_products($currency) . ((double)$value * $currency->exchange_rate) . get_currency_suffix_for_products($currency);
     }
 }
 
