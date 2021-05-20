@@ -35,7 +35,6 @@ class UpdateCurrencyRequest extends Request
            'subunit' => 'required',
            'decimal_mark' => 'required',
            'thousands_separator' => 'required',
-           'symbol_first' => 'required',
            'subunit_to_unit' => 'required|numeric',
            'smallest_denomination' => 'required|numeric',
            'subunit_to_unit' => 'required|numeric',
