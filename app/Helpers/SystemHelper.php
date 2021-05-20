@@ -119,6 +119,7 @@ if (! function_exists('setSystemConfig'))
         if($shop && ! config('shop_settings')){
             setShopConfig($shop);
         }
+        //dd(config('system_settings.decimals'));
     }
 }
 
@@ -193,6 +194,7 @@ if (! function_exists('setSystemCurrency'))
                 'decimal_mark' => $currency->decimal_mark,
                 'thousands_separator' => $currency->thousands_separator,
                 'subunit' => $currency->subunit,
+                'exchange_rate' => $currency->exchange_rate,
             ]
         ]);
     }

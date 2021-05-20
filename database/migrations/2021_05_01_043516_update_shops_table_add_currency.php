@@ -14,7 +14,7 @@ class UpdateShopsTableAddCurrency extends Migration
     public function up()
     {
         Schema::table('shops', function (Blueprint $table) {
-            $table->integer('currency_id')->unsigned()->nullable()->default(1);
+            $table->integer('currency_id')->unsigned()->nullable()->default(148);
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('set null')->onUpdate('set null');
         });
     }
