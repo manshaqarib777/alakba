@@ -69,7 +69,7 @@
 										<td>{{ $order->shop->getName() }}</td>
 									@endif
 									<td>{{ $order->customer->getName() }}</td>
-									<td>{{ get_formated_currency_for_orders($order->grand_total, true, 2, $order->currency) }}</td>
+									<td>{{ get_formated_currency_for_orders($order->grand_total, true, 2, @$order->currency) }}</td>
 									<td>{!! $order->paymentStatusName() !!}</td>
 									<td>{!! $order->orderStatus() !!}</td>
 									<td class="row-options">
@@ -115,7 +115,7 @@
 									</td>
 							        <td>{{ $order->created_at->toDayDateTimeString() }}</td>
 									<td>{{ $order->customer->name }}</td>
-									<td>{{ get_formated_currency_for_orders($order->grand_total, true, 2),$order->currency}}</td>
+									<td>{{ get_formated_currency_for_orders($order->grand_total, true, 2,$order->currency)}}</td>
 									<td>{!! $order->paymentStatusName() !!}</td>
 									<td>{!! $order->orderStatus() !!}</td>
 									<td class="row-options">
