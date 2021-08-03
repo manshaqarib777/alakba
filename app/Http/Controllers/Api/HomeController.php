@@ -25,7 +25,7 @@ use App\Http\Resources\PackagingResource;
 use App\Http\Resources\PaymentMethodResource;
 use App\Http\Resources\ShippingOptionResource;
 use App\Http\Requests\Validations\ShippingOptionRequest;
-
+use App\Helpers\ListHelper;
 class HomeController extends Controller
 {
     /**
@@ -229,6 +229,12 @@ class HomeController extends Controller
     {
         $countries = Country::select('id','name','iso_code')->get();
         return CountryResource::collection($countries);
+    }
+
+
+    public function currencies()
+    {
+        return ListHelper::currencies(true);
     }
 
     /**
