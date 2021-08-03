@@ -90,7 +90,7 @@
         <meta property="og:type" content="product">
         <meta name="product:availability" content="{{ $item->stock_quantity > 0 ? trans('theme.in_stock') : trans('theme.out_of_stock') }}">
         <meta name="product:price:currency" content="{{ get_system_currency() }}">
-        <meta name="product:price:amount" content="{!! get_formated_currency($item->current_sale_price(), $item->product->shop->currency->decimals) !!}">
+        <meta name="product:price:amount" content="{!! get_formated_currency($item->current_sale_price(), @$item->product->shop->currency->decimals) !!}">
         <meta name="product:brand" content="{!! $item->product->manufacturer->name !!}">
 
         @php
