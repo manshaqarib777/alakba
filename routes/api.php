@@ -9,6 +9,7 @@ Route::group(['namespace' => 'Api'], function(){
 	Route::get('category-subgrps/{group?}', 'CategoryController@categorySubGroup');
 	Route::get('categories/{sub_group?}', 'CategoryController@index');
 	Route::get('countries', 'HomeController@countries');
+	Route::get('currencies', 'HomeController@currencies');
 	Route::get('states/{country}', 'HomeController@states');
 
 	Route::get('blogs', 'BlogController@index');
