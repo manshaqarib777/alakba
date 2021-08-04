@@ -66,12 +66,12 @@ class SystemController extends Controller
         $system->update($request->except('image', 'delete_image'));
 
         if ($request->hasFile('icon')){
-            $request->file('icon')->storeAs('','icon.png');
+            $request->file('icon')->storeAs(public_path('image'),'icon.png');
             Storage::deleteDirectory(image_cache_path('icon.png'));
         }
 
         if ($request->hasFile('logo')){
-            $request->file('logo')->storeAs('','logo.png');
+            $request->file('logo')->storeAs(public_path('image'),'logo.png');
             Storage::deleteDirectory(image_cache_path('logo.png'));
         }
 
