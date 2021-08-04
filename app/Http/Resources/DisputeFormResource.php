@@ -19,7 +19,7 @@ class DisputeFormResource extends JsonResource
         {
             $currency=Currency::where('iso_code',session()->get('currency'))->first();
         }
-        if($currency==null)
+        if(@$currency==null)
         {
             $currency= (object)config('system_settings.currency');
         }
