@@ -71,6 +71,7 @@ class SystemController extends Controller
         }
 
         if ($request->hasFile('logo')){
+        	
             $request->file('logo')->storeAs(public_path('image'),'logo.png');
             Storage::deleteDirectory(image_cache_path('logo.png'));
         }
