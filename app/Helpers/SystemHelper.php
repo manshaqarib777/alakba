@@ -316,7 +316,7 @@ if (! function_exists('saveOrderFromCart'))
             $cart->handling = Null;
         }
 
-        $currency=Currency::where('iso_code',$request->currency_id)->first();
+        $currency=Currency::where('id',$request->currency_id)->first();
         // Save the order
         $order = new Order;
 
