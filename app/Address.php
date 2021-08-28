@@ -206,6 +206,7 @@ class Address extends BaseModel
     public function toArray()
     {
         $address = [];
+        $address['id'] = $this->id;
         $address ['address_type'] = $this->address_type;
         $address['address_title'] = $this->address_title;
         $address['address_line_1'] = $this->address_line_1;
