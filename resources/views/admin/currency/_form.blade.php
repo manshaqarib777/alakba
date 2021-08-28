@@ -117,13 +117,21 @@
         </div>
     </div>
     <div class="col-sm-6">
-      <div class="form-group">
-        {!! Form::label('decimals', '*' . trans('app.decimals'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
-        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_decimals') }}"></i>
-        {!! Form::select('decimals', ['0' => '0', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6'], 2, ['class' => 'form-control select2-normal', 'required']) !!}
-        <div class="help-block with-errors"></div>
-      </div>
-  </div>
+        <div class="form-group">
+            {!! Form::label('decimals', '*' . trans('app.decimals'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_decimals') }}"></i>
+            {!! Form::select('decimals', ['0' => '0', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6'], 2, ['class' => 'form-control select2-normal', 'required']) !!}
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('exchange_rate', trans('app.form.exchange_rate') . '*', ['class' => 'with-help']) !!}
+            <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
+                title="{{ trans('help.currency_exchange_rate') }}"></i>
+            {!! Form::text('exchange_rate', null, ['class' => 'form-control', 'placeholder' => trans('app.placeholder.exchange_rate'), 'required']) !!}
+        </div>
+    </div>
 </div>
 
 <div class="row">
