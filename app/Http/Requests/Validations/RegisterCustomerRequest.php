@@ -29,6 +29,7 @@ class RegisterCustomerRequest extends Request
             'email' => 'required|email|max:255|unique:customers',
             'password' => 'required|string|min:6|confirmed',
             'agree' => 'required',
+            'country_id' => 'required',
         ];
     }
 

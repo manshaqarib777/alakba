@@ -5,6 +5,7 @@ use App\Cart;
 use App\Order;
 use App\Coupon;
 use App\Currency;
+use App\Country;
 use App\Visitor;
 use App\Packaging;
 use App\ShippingRate;
@@ -175,7 +176,9 @@ if (! function_exists('setSystemCurrency'))
      */
     function setSystemCurrency()
     {
-        $currency = DB::table('currencies')->where('id', config('system_settings.currency_id'))->first();
+        $country = DB::table('countries')->where('id', 840)->first();
+        $currency = DB::table('currencies')->where('id', $country->currency_id)->first();
+        //dd(config('system_settings.country_id'));
 
         // Set Cashier Currency
         // Cashier::useCurrency($currency->iso_code, $currency->symbol);
@@ -316,7 +319,8 @@ if (! function_exists('saveOrderFromCart'))
             $cart->handling = Null;
         }
 
-        $currency=Currency::where('id',$request->currency_id)->first();
+        $country=Country::where('id',$request->country_id)->first();
+        $currency=Currency::where('id',$country->currency_id)->first();
         // Save the order
         $order = new Order;
 

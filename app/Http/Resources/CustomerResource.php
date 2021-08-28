@@ -23,6 +23,7 @@ class CustomerResource extends JsonResource
             'description' => $this->description,
             'active' => $this->active,
             'email' => $this->email,
+            'addresses' => $this->addresses,
             'accepts_marketing' => $this->accepts_marketing,
             'member_since' => optional($this->created_at)->diffForHumans(),
             'avatar' => get_avatar_src($this, 'small'),

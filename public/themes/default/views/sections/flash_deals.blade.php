@@ -73,10 +73,10 @@
                                                     </a> --}}
 
                                                     <div class="flash-deal__product-price">
-                                                        <span class="currant-price">{!! get_formated_price($item->current_sale_price(), $item->shop->currency->decimals) !!}</span>
+                                                        <span class="currant-price">{!! get_formated_price($item->current_sale_price(), $item->shop->country->currency->decimals) !!}</span>
 
                                                         @if($item->hasOffer())
-                                                            <span class="old-price">{!! get_formated_price($item->sale_price, $item->shop->currency->decimals) !!}</span>
+                                                            <span class="old-price">{!! get_formated_price($item->sale_price, $item->shop->country->currency->decimals) !!}</span>
 
                                                             <span class="offer">
                                                                 {{ trans('theme.percent_off', ['value' => $item->discount_percentage()]) }}

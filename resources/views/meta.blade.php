@@ -90,7 +90,7 @@
         <meta property="og:type" content="product">
         <meta name="product:availability" content="{{ $item->stock_quantity > 0 ? trans('theme.in_stock') : trans('theme.out_of_stock') }}">
         <meta name="product:price:currency" content="{{ get_system_currency() }}">
-        <meta name="product:price:amount" content="{!! get_formated_currency($item->current_sale_price(), @$item->product->shop->currency->decimals) !!}">
+        <meta name="product:price:amount" content="{!! get_formated_currency($item->current_sale_price(), @$item->product->shop->country->currency->decimals) !!}">
         <meta name="product:brand" content="{!! $item->product->manufacturer->name !!}">
 
         @php
@@ -139,7 +139,7 @@
     @if(isset($item))
         <meta name="twitter:card" content="product">
         <meta name="twitter:label1" content="price">
-        <meta name="twitter:data1" content="{!! get_formated_currency($item->current_sale_price(), @$item->product->shop->currency->decimals) !!}">
+        <meta name="twitter:data1" content="{!! get_formated_currency($item->current_sale_price(), @$item->product->shop->country->currency->decimals) !!}">
         <meta name="twitter:label2" content="availability">
         <meta name="twitter:data2" content="{{ $item->stock_quantity > 0 ? trans('theme.in_stock') : trans('theme.out_of_stock') }}">
         <meta name="twitter:label3" content="currency">
@@ -179,7 +179,7 @@
                     "url": "{{ $SEOurl }}",
                     "availability": "http://schema.org/InStock",
                     "priceCurrency": "{{ get_system_currency() }}",
-                    "price": "{!! get_formated_decimal($item->current_sale_price(), true, @$item->product->shop->currency->decimals) !!}"
+                    "price": "{!! get_formated_decimal($item->current_sale_price(), true, @$item->product->shop->country->currency->decimals) !!}"
                 },
                 @if($item->feedbacks_count > 0)
                 "aggregateRating": {

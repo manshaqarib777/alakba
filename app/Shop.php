@@ -105,7 +105,7 @@ class Shop extends BaseModel
                     'id_verified',
                     'phone_verified',
                     'address_verified',
-                    'currency_id',
+                    'country_id',
                 ];
 
     /**
@@ -116,9 +116,10 @@ class Shop extends BaseModel
         return $this->belongsTo(User::class, 'owner_id')->withTrashed();
     }
 
-    public function currency()
+
+    public function country()
     {
-        return $this->belongsTo(Currency::class, 'currency_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
     /**

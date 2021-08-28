@@ -53,7 +53,8 @@ class CartController extends Controller
 
         $geoip_state = State::select('id', 'name', 'iso_code', 'country_id')
         ->where('iso_code', $geoip->state)->where('country_id', $geoip_country->id)->first();
-        $current_currency=Currency::where('iso_code',session()->get('currency'))->first();
+        $country=Country::where('id',session()->get('country'))->first();
+        $current_currency=Currency::where('id',$country->currency_id)->first();
 
         return view('theme::cart', compact('carts','business_areas','geoip_country','geoip_state','platformDefaultPackaging','expressId','current_currency'));
     }

@@ -107,11 +107,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							{!! Form::label('currency_id', '*' . trans('app.form.system_currency'). ':', ['class' => 'with-help col-sm-3 control-label']) !!}
-							  <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.system_currency') }}"></i>
+							{!! Form::label('country_id', '*' . trans('app.form.system_country'). ':', ['class' => 'with-help col-sm-3 control-label']) !!}
+							  <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.system_country') }}"></i>
 							  <div class="col-sm-8 nopadding-left">
 								  @if($can_update)
-									{!! Form::select('currency_id', $currencies , $shop->currency_id, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.system_currency'), 'required']) !!}
+									{!! Form::select('country_id', $countries , $shop->country_id, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.system_country'), 'required']) !!}
 									  <div class="help-block with-errors"></div>
 								@else
 									<span>{{ $shop->name }}</span>

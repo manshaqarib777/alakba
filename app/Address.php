@@ -210,6 +210,7 @@ class Address extends BaseModel
         $address['address_title'] = $this->address_title;
         $address['address_line_1'] = $this->address_line_1;
         $address['address_line_2'] = $this->address_line_2;
+        $address['country_id'] = $this->country_id;
         $address['city'] = $this->city;
 
         if($this->state) {

@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Currency;
+use App\Country;
 
 class CartResource extends JsonResource
 {
@@ -15,14 +16,8 @@ class CartResource extends JsonResource
      */
     public function toArray($request)
     {
-        if(session()->get('currency')!=null)
-        {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
-        }
-        if(@$currency==null)
-        {
-            $currency= (object)config('system_settings.currency');
-        }
+        $country=Country::where('id','840')->first();
+        $currency=Currency::where('id',$country->currency_id)->first();
         return [
             'id' => $this->id,
             'customer_id' => $this->customer_id,

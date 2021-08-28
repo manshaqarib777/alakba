@@ -1212,6 +1212,17 @@ class ListHelper
         return $currencies;
     }
 
+    public static function countries_with_id($all = false)
+    {
+        $query = \DB::table('countries')->select('name', 'id');
+
+            $query->where('active', 1);
+
+        $countries = $query->orderBy('name', 'asc')->get();
+
+        return $countries;
+    }
+
     /**
      * Get attributes list for form dropdown.
      *

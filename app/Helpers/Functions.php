@@ -97,7 +97,20 @@ if (! function_exists('get_system_currency'))
 {
     function get_system_currency()
     {
-        return config('system_settings.currency.iso_code');
+        if(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+        }
+        if(@$country==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        else
+        {
+            $currency=Currency::where('id',$country->currency_id)->first();
+        }
+        
+        return $currency->iso_code;
     }
 }
 
@@ -118,7 +131,19 @@ if (! function_exists('get_currency_symbol_for_products'))
         {
             return $symbol;
         }
-        return config('system_settings.currency.symbol', '$');
+        if(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+        }
+        if(@$country==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        else
+        {
+            $currency=Currency::where('id',$country->currency_id)->first();
+        }
+        return $currency->symbol;
     }
 }
 
@@ -131,7 +156,19 @@ if (! function_exists('get_currency_symbol_for_orders'))
         {
             return $symbol;
         }
-        return config('system_settings.currency.symbol', '$');
+        if(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+        }
+        if(@$country==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        else
+        {
+            $currency=Currency::where('id',$country->currency_id)->first();
+        }
+        return $currency->symbol;
     }
 }
 
@@ -142,15 +179,19 @@ if (! function_exists('get_currency_symbol'))
         $currency=null;
         if(isset(auth()->user()->shop_id))
         {
-            return auth()->user()->shop->currency->symbol;
+            return auth()->user()->shop->country->currency->symbol;
         }
-        if(session()->get('currency')!=null)
+        if(session()->get('country')!=null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
         }
-        if(@$currency==null)
+        if(@$country==null)
         {
             $currency= (object)config('system_settings.currency');
+        }
+        else
+        {
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         return $currency->symbol;
     }
@@ -1114,13 +1155,16 @@ if (! function_exists('get_formated_currency_for_products'))
             $decimal = Null;
         }
         $value =  get_formated_decimal($value, $decimal ? false : true, $decimal,$currency);
+
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         //dd($currency);
         return get_currency_prefix_for_products($currency) . ((double)$value * $currency->exchange_rate) . get_currency_suffix_for_products($currency);
@@ -1134,7 +1178,8 @@ if (! function_exists('get_current_currency'))
         $currency=Currency::where('iso_code',session()->get('currency'))->first();
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         return $currency->exchange_rate;
     }
@@ -1146,11 +1191,13 @@ if (! function_exists('get_currency_prefix_for_products'))
     {
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         } 
         return $currency->symbol_first ? get_formated_currency_symbol_for_products($currency) : '';
     }
@@ -1162,11 +1209,13 @@ if (! function_exists('get_currency_suffix_for_products'))
     {
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         return $currency->symbol_first ? '' : get_formated_currency_symbol_for_products($currency);
     }
@@ -1181,11 +1230,13 @@ if (! function_exists('get_currency_prefix_for_orders'))
         
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         } 
         return $currency->symbol_first ? get_formated_currency_symbol_for_orders($currency) : '';
     }
@@ -1197,11 +1248,13 @@ if (! function_exists('get_currency_suffix_for_orders'))
     {
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         return $currency->symbol_first ? '' : get_formated_currency_symbol_for_orders($currency);
     }
@@ -1213,7 +1266,8 @@ if (! function_exists('get_currency_prefix'))
     {
         if(session()->get('currency')!=null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
             return $currency->symbol_first ? get_formated_currency_symbol($currency) : '';
 
         }
@@ -1229,7 +1283,8 @@ if (! function_exists('get_currency_suffix'))
     {
         if(session()->get('currency')!=null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
             return $currency->symbol_first ? '' : get_formated_currency_symbol($currency);
         }
         return config('system_settings.currency.symbol_first') ? '' : get_formated_currency_symbol(config('system_settings.currency'));
@@ -1243,14 +1298,15 @@ if (! function_exists('get_formated_currency_symbol'))
     {
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         $currency= (object)$currency;
-        //dd($currency);
         if ( $currency->show_currency_symbol) {
             if ($currency->symbol_first) {
                 return get_currency_symbol() . ($currency->show_space_after_symbol ? ' ' : '');
@@ -1268,11 +1324,13 @@ if (! function_exists('get_formated_currency_symbol_for_products'))
 
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         $currency= (object)$currency;
         //dd($currency);
@@ -1294,11 +1352,13 @@ if (! function_exists('get_formated_currency_symbol_for_orders'))
 
         if(@$currency==null)
         {
-            $currency=Currency::where('iso_code',session()->get('currency'))->first();
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         if(@$currency==null)
         {
-            $currency= (object)config('system_settings.currency');
+            $country=Country::where('id',(object)config('system_settings.country'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
         }
         $currency= (object)$currency;
         //dd($currency);

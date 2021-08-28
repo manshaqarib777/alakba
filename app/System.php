@@ -61,7 +61,7 @@ class System extends BaseModel
             'email',
             'worldwide_business_area',
             'timezone_id',
-            'currency_id',
+            'country_id',
             'default_language',
         ];
 
@@ -96,11 +96,11 @@ class System extends BaseModel
     }
 
     /**
-     * Get the currency associated with the blog post.
+     * Get the country associated with the blog post.
      */
-    public function currency()
+    public function country()
     {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(Country::class);
     }
 
     /**

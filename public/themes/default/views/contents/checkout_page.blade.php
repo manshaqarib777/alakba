@@ -64,7 +64,7 @@
           {{ Form::hidden('cart_weight', $cart->shipping_weight, ['id' => 'cartWeight'.$cart->id]) }}
           {{ Form::hidden('free_shipping', $cart->is_free_shipping(), ['id' => 'freeShipping'.$cart->id]) }}
           {{ Form::hidden('shop_id', $cart->shop->id, ['id' => 'shop-id'.$cart->id]) }}
-          {{ Form::hidden('currency_id', session()->get('currency'), ['id' => 'currency-id'.$cart->id]) }}
+          {{ Form::hidden('country_id', session()->get('country'), ['id' => 'country-id'.$cart->id]) }}
           {{ Form::hidden('tax_id', isset($shipping_zone->id) ? $shipping_zone->tax_id : Null, ['id' => 'tax-id'.$cart->id]) }}
           {{ Form::hidden('taxrate', $cart->taxrate, ['id' => 'cart-taxrate'.$cart->id]) }}
           {{ Form::hidden('packaging_id', $cart->packaging_id ?? $default_packaging->id, ['id' => 'packaging-id'.$cart->id]) }}

@@ -1178,8 +1178,10 @@ class ViewComposerServiceProvider extends ServiceProvider
         function($view)
         {
             $view->with('currencies', ListHelper::currencies());
+            $view->with('countries', ListHelper::countries());
             $view->with('languages', ListHelper::languages());
             $view->with('currencies_with_iso_code', ListHelper::currencies_with_iso_code(true));
+            $view->with('countries_with_id', ListHelper::countries_with_id(true));
         });
         View::composer(
 

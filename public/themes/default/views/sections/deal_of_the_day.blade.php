@@ -32,8 +32,8 @@
                                             </div>
                                             <div class="week-deal__details-price">
                                                 <p>
-                                                    <span class="regular-price"> {!! get_formated_price($deal_of_the_day->current_sale_price(), $deal_of_the_day->shop->currency->decimals) !!}</span>
-                                                    <span class="old-price"> {!! get_formated_price($deal_of_the_day->sale_price, $deal_of_the_day->shop->currency->decimals) !!}</span>
+                                                    <span class="regular-price"> {!! get_formated_price($deal_of_the_day->current_sale_price(), $deal_of_the_day->shop->country->currency->decimals) !!}</span>
+                                                    <span class="old-price"> {!! get_formated_price($deal_of_the_day->sale_price, $deal_of_the_day->shop->country->currency->decimals) !!}</span>
                                                 </p>
                                             </div>
                                             <div class="week-deal__details-description">

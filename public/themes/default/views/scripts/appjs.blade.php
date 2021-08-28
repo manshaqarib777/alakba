@@ -129,15 +129,15 @@
           }
         });
 
-        var currencyRoute = '{{route('currency.change', '_currency_')}}';
-        $('select#currencyChange').ddslick({
+        var countryRoute = '{{route('country.change', '_country_')}}';
+        $('select#countryChange').ddslick({
           width: "100%",
           imagePosition: "left",
           selectText: "Select",
           onSelected: function(data){
-              var currency = data.selectedData.value;
-              if (currency != "{{session()->get('currency')}}") {
-                  window.location.href = currencyRoute.replace("_currency_", currency);
+              var country = data.selectedData.value;
+              if (country != "{{session()->get('country')}}") {
+                  window.location.href = countryRoute.replace("_country_", country);
               }
           }
         });
@@ -384,14 +384,18 @@
 // Helpers
 @php
     $currency=null;
-    if(session()->get('currency')!=null)
-    {
-        $currency=\App\Currency::where('iso_code',session()->get('currency'))->first();
-    }
-    if(@$currency==null)
-    {
-        $currency= (object)config('system_settings.currency');
-    }
+    if(session()->get('country')!=null)
+        {
+            $country=\App\Country::where('id',session()->get('country'))->first();
+        }
+        if(@$country==null)
+        {
+            $currency= (object)config('system_settings.currency');
+        }
+        else
+        {
+            $currency=\App\Currency::where('id',$country->currency_id)->first();
+        }
 @endphp
 var decimals={{isset($currency->decimals) ? $currency->decimals : 2}};
 function getFormatedValue(value = 0, dec = decimals)

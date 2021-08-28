@@ -33,6 +33,7 @@ class AuthController extends Controller
             'accepts_marketing' => $request->subscribe,
             'verification_token' => Str::random(40),
             'active' => 0,
+            'country_id' => $request->country_id,
         ]);
 
         // Sent email address verification notich to customer
