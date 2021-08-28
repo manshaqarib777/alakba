@@ -26,7 +26,7 @@ class OrderController extends Controller
     {
         $orders = Auth::guard('api')->user()->orders()
         ->with([
-            'shop:id,name,slug',
+            'shop',
             'inventories:id,title,slug,product_id',
             'inventories.image:path,imageable_id,imageable_type',
             'dispute:id,order_id'
