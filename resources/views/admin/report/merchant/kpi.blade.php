@@ -5,6 +5,13 @@
   {
       $currency=\App\Currency::where('iso_code',session()->get('currency'))->first();
   }
+  if(session()->get('country')!=null)
+  {
+      $country=Country::where('id',session()->get('country'))->first();
+      $currency=Currency::where('id',@$country->currency_id)->first();
+      return $currency->symbol_first ? get_formated_currency_symbol($currency) : '';
+
+  }
   if(@$currency==null)
   {
       $currency= (object)config('system_settings.currency');

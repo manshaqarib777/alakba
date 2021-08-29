@@ -301,7 +301,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 function($view)
                 {
                     $view->with('taxes', ListHelper::taxes());
-                    $view->with('countries', ListHelper::active_bussiness_areas());
+                    $view->with('frontend_countries', ListHelper::active_bussiness_areas());
                 });
     }
 
@@ -353,7 +353,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
                     $view->with('gtin_types', ListHelper::gtin_types());
 
-                    $view->with('countries', ListHelper::countries());
+                    $view->with('frontend_countries', ListHelper::countries());
 
                     $view->with('tags', ListHelper::tags());
                 });
@@ -439,7 +439,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                         $view_data['tax']['country_id'] :
                         config('system_settings.address_default_country');
 
-                $view->with('countries', ListHelper::countries());
+                $view->with('frontend_countries', ListHelper::countries());
 
                 $view->with('states', ListHelper::states($country_id));
             }
@@ -504,7 +504,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             function($view)
             {
-                $view->with('countries', ListHelper::countries());
+                $view->with('frontend_countries', ListHelper::countries());
             }
         );
     }
@@ -623,7 +623,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                     $view->with('address_types', ListHelper::address_types());
                 }
 
-                $view->with('countries', ListHelper::countries());
+                $view->with('frontend_countries', ListHelper::countries());
 
                 $view->with('states', ListHelper::states($country_id));
             }
@@ -1144,7 +1144,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
                 function($view)
                 {
-                    $view->with('countries', ListHelper::countries());
+                    $view->with('frontend_countries', ListHelper::countries());
                     $view->with('states', ListHelper::states());
                     $view->with('payment_method_types', ListHelper::payment_method_types());
                     $view->with('payment_methods', PaymentMethod::all());
@@ -1178,7 +1178,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         function($view)
         {
             $view->with('currencies', ListHelper::currencies());
-            $view->with('countries', ListHelper::countries());
+            $view->with('frontend_countries', ListHelper::countries());
             $view->with('languages', ListHelper::languages());
             $view->with('currencies_with_iso_code', ListHelper::currencies_with_iso_code(true));
             $view->with('countries_with_id', ListHelper::countries_with_id(true));

@@ -107,8 +107,14 @@ class HomeController extends Controller
         $products = $all_products->withCount(['feedbacks', 'orders' => function($query){
             $query->where('order_items.created_at', '>=', Carbon::now()->subHours(config('system.popular.hot_item.period', 24)));
         }])
-        ->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type'])
-        ->paginate(config('system.view_listing_per_page', 16))->appends($request->except('page'));
+        ->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type']);
+        if(session()->get('country')!=null)
+        {
+            $products = $products->whereHas('shop', function($query) {
+                return $query->where('country_id', session()->get('country'));
+            });
+        }
+        $products =$products->paginate(config('system.view_listing_per_page', 16))->appends($request->except('page'));
 
         return view('theme::category', compact('category', 'products', 'brands', 'priceRange'));
     }
@@ -350,8 +356,14 @@ class HomeController extends Controller
         $products = Inventory::whereIn('product_id', $ids)->filter(request()->all())
         ->whereHas('shop', function($q) {
             $q->select(['id', 'current_billing_plan', 'active'])->active();
-        })
-        ->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type'])
+        });
+        if(session()->get('country')!=null)
+        {
+            $products = $products->whereHas('shop', function($query) {
+                return $query->where('country_id', session()->get('country'));
+            });
+        }
+        $products =$products->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type'])
         ->withCount(['orders' => function($q){
             $q->where('order_items.created_at', '>=', Carbon::now()->subHours(config('system.popular.hot_item.period', 24)));
         }])

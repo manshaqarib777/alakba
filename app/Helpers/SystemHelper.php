@@ -466,8 +466,14 @@ if (! function_exists('prepareFilteredListings'))
             $t_products = $t_category->listings()->available()->filter($request->all())
             ->withCount(['feedbacks', 'orders' => function($query){
                 $query->where('order_items.created_at', '>=', Carbon::now()->subHours(config('system.popular.hot_item.period', 24)));
-            }])
-            ->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type'])->get();
+            }]);
+            if(session()->get('country')!=null)
+            {
+                $t_products = $t_products->whereHas('shop', function($query) {
+                    return $query->where('country_id', session()->get('country'));
+                });
+            }
+            $t_products =$t_products->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type'])->get();
 
             foreach ($t_products as $t_product) {
                 $t_listings[] = $t_product;
