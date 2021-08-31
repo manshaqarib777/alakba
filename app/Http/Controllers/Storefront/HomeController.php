@@ -386,6 +386,29 @@ class HomeController extends Controller
         return view('theme::brand', compact('brand', 'products'));
     }
 
+    public function country($country)
+    {
+        //dd($country);
+        $products = Inventory::filter(request()->all())
+        ->whereHas('shop', function($q) {
+            $q->select(['id', 'current_billing_plan', 'active'])->active();
+        });
+        if($country!=0)
+        {
+            $products = $products->whereHas('shop', function($query) use ($country) {
+                return $query->where('country_id', $country);
+            });
+        }
+        $products =$products->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type'])
+        ->withCount(['orders' => function($q){
+            $q->where('order_items.created_at', '>=', Carbon::now()->subHours(config('system.popular.hot_item.period', 24)));
+        }])
+        ->active()->groupBy('product_id')->groupBy('shop_id')->paginate(20);
+        $country=Country::find($country);
+
+        return view('theme::country', compact('country', 'products'));
+    }
+
     /**
      * Display the category list page.
      * @return \Illuminate\Http\Response
