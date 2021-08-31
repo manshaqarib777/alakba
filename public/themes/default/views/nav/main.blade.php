@@ -266,6 +266,12 @@
         </li>
 
         <li>
+            <a class="menu-link" href="{{ route('countries') }}">
+              <i class="fal fa-flag menu-icon"></i> {{trans('theme.countries')}}
+            </a>
+        </li>
+
+        <li>
           <a class="menu-link" href="{{ route('shops') }}">
               <i class="fal fa-store menu-icon"></i> {{trans('theme.vendors')}}
           </a>
