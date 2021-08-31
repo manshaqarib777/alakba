@@ -297,7 +297,7 @@ class HomeController extends Controller
 
     public function all_countries()
     {
-        $countries = Country::whereHas('shop')->paginate(24);
+        $countries=Country::where('active',1)->orderBy('name', 'asc')->paginate(24);
         //dd($countries);
 
         return view('theme::country_lists', compact('countries'));
