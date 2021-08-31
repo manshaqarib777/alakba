@@ -24,18 +24,25 @@ class LocaleController extends Controller
 
     public function changeCountry($id = '840')
     {
-        // if(auth()->user()->role_id==1 || auth()->user()->role_id==2)
-        // {
-        //     Session::put('currency', config('system_settings.currency.symbol'));
-        //     return redirect()->back();
-        // }
-        // if(isset(auth()->user()->shop_id))
-        // {
-        //     Session::put('currency', auth()->user()->shop->country->currency->symbol);
-        //     return redirect()->back();
-        // }
+        if($id=='null')
+        {
+            Session::put('country', '');
+            return redirect()->back();
+        }
         Session::put('country', $id);
-
         return redirect()->back();
+    }
+
+    public function changeCurrency($iso_code = 'USD')
+    {
+        if($iso_code=='null')
+        {
+            Session::put('currency', '');
+            return redirect()->back();
+        }
+        Session::put('currency', $iso_code);
+        return redirect()->back();
+
+        
     }
 }

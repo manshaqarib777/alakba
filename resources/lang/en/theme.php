@@ -681,8 +681,10 @@ return [
     'additional_item' => 'Additional items to explore',
     'track_your_order' => 'Track Your Order',
     'brands' => 'Brands',
+    'countries' => 'Countries',
     'vendors' => 'Vendors',
     'all_brands' => 'All Brands',
+    'all_countries' => 'All Countries',
     'all_shops' => 'All Vendors',
     'sale_over' => 'Sorry! You\'ve missed the sale!',
 ];

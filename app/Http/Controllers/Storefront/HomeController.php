@@ -295,6 +295,14 @@ class HomeController extends Controller
         return view('theme::brand_lists', compact('brands'));
     }
 
+    public function all_countries()
+    {
+        $countries = Country::whereHas('shop')->paginate(24);
+        //dd($countries);
+
+        return view('theme::country_lists', compact('countries'));
+    }
+
     /**
      * Open shop list page
      *
@@ -335,8 +343,14 @@ class HomeController extends Controller
         ->with(['feedbacks:rating,feedbackable_id,feedbackable_type', 'images:path,imageable_id,imageable_type'])
         ->withCount(['orders' => function($q){
             $q->where('order_items.created_at', '>=', Carbon::now()->subHours(config('system.popular.hot_item.period', 24)));
-        }])
-        ->available()->paginate(20);
+        }]);
+        if(session()->get('country')!=null)
+        {
+            $products = $products->whereHas('shop', function($query) {
+                return $query->where('country_id', session()->get('country'));
+            });
+        }
+        $products = $products->available()->paginate(20);
 
         return view('theme::shop', compact('shop', 'products'));
     }

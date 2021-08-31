@@ -35,6 +35,10 @@ class Country extends BaseModel
     {
         return $this->hasMany(State::class);
     }
+    public function shop()
+    {
+        return $this->hasOne(Shop::class,'country_id','id');
+    }
 
     /**
      * Get all of the timezone for the country.

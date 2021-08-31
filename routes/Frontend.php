@@ -37,6 +37,7 @@ Route::group(['middleware' => ['storefront'], 'namespace' => 'Storefront'], func
 	// Route::get('shop/reviews/{slug}', 'HomeController@shopReviews')->name('reviews.store');
 	Route::get('brand/{slug}', 'HomeController@brand')->name('show.brand');
 	Route::get('brands', 'HomeController@all_brands')->name('brands');
+	Route::get('countries', 'HomeController@all_countries')->name('countries');
 	Route::get('search', 'SearchController@search')->name('inCategoriesSearch');
 	Route::get('blog', 'BlogController@index')->name('blog');
 	Route::any('blog/search', 'BlogController@search')->name('blog.search');

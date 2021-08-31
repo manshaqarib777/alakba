@@ -77,11 +77,11 @@
              </select>
            </li> --}}
 
-           <li class="country">
-            <select name="country" id="countryChange">
-                @foreach($countries_with_id as $key => $value)
-                  <option dd-link="{{route('country.change', $value->id)}}" value="{{$value->id}}"  {{$value->id == session()->get('country') ? 'selected' : ''}}>
-                      {{ $value->name  }}
+           <li class="currency">
+            <select name="currency" id="currencyChange">
+                @foreach($currencies_with_iso_code as $key => $value)
+                  <option dd-link="{{route('currency.change', $value->id)}}" value="{{$value->id}}"  {{$value->id == session()->get('currency') ? 'selected' : ''}}>
+                      {{ $value->name . ' (' . $value->iso_code . ' ' . $value->symbol . ')' }}
                   </option>
                 @endforeach
             </select>

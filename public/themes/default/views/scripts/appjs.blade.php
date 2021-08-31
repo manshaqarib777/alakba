@@ -129,15 +129,15 @@
           }
         });
 
-        var countryRoute = '{{route('country.change', '_country_')}}';
-        $('select#countryChange').ddslick({
+        var currencyRoute = '{{route('currency.change', '_currency_')}}';
+        $('select#currencyChange').ddslick({
           width: "100%",
           imagePosition: "left",
           selectText: "Select",
           onSelected: function(data){
-              var country = data.selectedData.value;
-              if (country != "{{session()->get('country')}}") {
-                  window.location.href = countryRoute.replace("_country_", country);
+            var currency = data.selectedData.value;
+              if (currency != "{{session()->get('currency')}}") {
+                  window.location.href = currencyRoute.replace("_currency_", currency);
               }
           }
         });

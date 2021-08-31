@@ -97,17 +97,18 @@ if (! function_exists('get_system_currency'))
 {
     function get_system_currency()
     {
-        if(session()->get('country')!=null)
-        {
-            $country=Country::where('id',session()->get('country'))->first();
-            $currency=Currency::where('id',@$country->currency_id)->first();
-            return $currency->iso_code;
-        }
+
         if(session()->get('currency')!=null)
         {
             $currency=Currency::where('id',session()->get('currency'))->first();
             return $currency->iso_code;
 
+        }
+        if(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',@$country->currency_id)->first();
+            return $currency->iso_code;
         }
         $country=Country::where('id',config('system_settings.country_id'))->first();
         $currency=Currency::where('id',$country->currency_id)->first();
@@ -133,17 +134,18 @@ if (! function_exists('get_currency_symbol_for_products'))
             return $symbol;
         }
 
-        if(session()->get('country')!=null)
-        {
-            $country=Country::where('id',session()->get('country'))->first();
-            $currency=Currency::where('id',@$country->currency_id)->first();
-            return $currency->symbol;
-        }
+
         if(session()->get('currency')!=null)
         {
             $currency=Currency::where('id',session()->get('currency'))->first();
             return $currency->symbol;
 
+        }
+        if(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',@$country->currency_id)->first();
+            return $currency->symbol;
         }
         $country=Country::where('id',config('system_settings.country_id'))->first();
         $currency=Currency::where('id',$country->currency_id)->first();
@@ -160,6 +162,12 @@ if (! function_exists('get_currency_symbol_for_orders'))
         {
             return $symbol;
         }
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('id',session()->get('currency'))->first();
+            return $currency->symbol;
+
+        }
 
         if(session()->get('country')!=null)
         {
@@ -167,12 +175,7 @@ if (! function_exists('get_currency_symbol_for_orders'))
             $currency=Currency::where('id',@$country->currency_id)->first();
             return $currency->symbol;
         }
-        if(session()->get('currency')!=null)
-        {
-            $currency=Currency::where('id',session()->get('currency'))->first();
-            return $currency->symbol;
 
-        }
         $country=Country::where('id',config('system_settings.country_id'))->first();
         $currency=Currency::where('id',$country->currency_id)->first();
         return $currency->symbol;
@@ -188,18 +191,19 @@ if (! function_exists('get_currency_symbol'))
         {
             return auth()->user()->shop->country->currency->symbol;
         }
-        if(session()->get('country')!=null)
-        {
-            $country=Country::where('id',session()->get('country'))->first();
-            $currency=Currency::where('id',@$country->currency_id)->first();
-            return $currency->symbol;
-        }
         if(session()->get('currency')!=null)
         {
             $currency=Currency::where('id',session()->get('currency'))->first();
             return $currency->symbol;
 
         }
+        if(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',@$country->currency_id)->first();
+            return $currency->symbol;
+        }
+
         $country=Country::where('id',config('system_settings.country_id'))->first();
         $currency=Currency::where('id',$country->currency_id)->first();
         return $currency->symbol;
@@ -1048,15 +1052,16 @@ if (! function_exists('get_formated_decimal'))
 
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
-            {
-                $country=Country::where('id',session()->get('country'))->first();
-                $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
+
+            if(session()->get('currency')!=null)
             {
                 $currency=Currency::where('id',session()->get('currency'))->first();
             
+            }
+            elseif(session()->get('country')!=null)
+            {
+                $country=Country::where('id',session()->get('country'))->first();
+                $currency=Currency::where('id',@$country->currency_id)->first();
             }
             else
             {
@@ -1157,14 +1162,14 @@ if (! function_exists('get_formated_currency_for_orders'))
 
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1190,14 +1195,14 @@ if (! function_exists('get_formated_currency_for_products'))
 
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1215,16 +1220,16 @@ if (! function_exists('get_current_currency'))
     function get_current_currency()
     {
         
-        if(session()->get('country')!=null)
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('id',session()->get('currency'))->first();
+        }
+        else if(session()->get('country')!=null)
         {
             $country=Country::where('id',session()->get('country'))->first();
             $currency=Currency::where('id',@$country->currency_id)->first();
         }
-        else if(session()->get('currency')!=null)
-        {
-            $currency=Currency::where('id',session()->get('currency'))->first();
-        }
-        else
+        else 
         {
             $country=Country::where('id',config('system_settings.country_id'))->first();
             $currency=Currency::where('id',$country->currency_id)->first();
@@ -1239,14 +1244,14 @@ if (! function_exists('get_currency_prefix_for_products'))
     {
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1264,14 +1269,14 @@ if (! function_exists('get_currency_suffix_for_products'))
     {
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1292,14 +1297,14 @@ if (! function_exists('get_currency_prefix_for_orders'))
         
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1317,14 +1322,14 @@ if (! function_exists('get_currency_suffix_for_orders'))
     {
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1340,14 +1345,14 @@ if (! function_exists('get_currency_prefix'))
 {
     function get_currency_prefix()
     {
-        if(session()->get('country')!=null)
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('id',session()->get('currency'))->first();
+        }
+        else if(session()->get('country')!=null)
         {
             $country=Country::where('id',session()->get('country'))->first();
             $currency=Currency::where('id',@$country->currency_id)->first();
-        }
-        else if(session()->get('currency')!=null)
-        {
-            $currency=Currency::where('id',session()->get('currency'))->first();
         }
         else
         {
@@ -1364,14 +1369,14 @@ if (! function_exists('get_currency_suffix'))
 {
     function get_currency_suffix()
     {
-        if(session()->get('country')!=null)
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('id',session()->get('currency'))->first();
+        }
+        else if(session()->get('country')!=null)
         {
             $country=Country::where('id',session()->get('country'))->first();
             $currency=Currency::where('id',@$country->currency_id)->first();
-        }
-        else if(session()->get('currency')!=null)
-        {
-            $currency=Currency::where('id',session()->get('currency'))->first();
         }
         else
         {
@@ -1389,14 +1394,14 @@ if (! function_exists('get_formated_currency_symbol'))
     {
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1422,14 +1427,14 @@ if (! function_exists('get_formated_currency_symbol_for_products'))
 
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
@@ -1457,14 +1462,14 @@ if (! function_exists('get_formated_currency_symbol_for_orders'))
 
         if(@$currency==null)
         {
-            if(session()->get('country')!=null)
+            if(session()->get('currency')!=null)
+            {
+                $currency=Currency::where('id',session()->get('currency'))->first();
+            }
+            else if(session()->get('country')!=null)
             {
                 $country=Country::where('id',session()->get('country'))->first();
                 $currency=Currency::where('id',@$country->currency_id)->first();
-            }
-            else if(session()->get('currency')!=null)
-            {
-                $currency=Currency::where('id',session()->get('currency'))->first();
             }
             else
             {
