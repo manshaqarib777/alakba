@@ -228,7 +228,7 @@ class HomeController extends Controller
      */
     public function countries()
     {
-        $countries = Country::with('currency')->get();
+        $countries = Country::with('currency')->where('active',1)->get();
         return $countries;
     }
 
