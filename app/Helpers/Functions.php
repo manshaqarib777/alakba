@@ -1211,7 +1211,7 @@ if (! function_exists('get_formated_currency_for_products'))
             }
         }
         //dd($currency);
-        return get_currency_prefix_for_products($currency) . ((double)$value * $currency->exchange_rate) . get_currency_suffix_for_products($currency);
+        return get_currency_prefix_for_products($currency) . ((double)$value * (double)$currency->exchange_rate) . get_currency_suffix_for_products($currency);
     }
 }
 
