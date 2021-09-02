@@ -81,6 +81,13 @@ class HomeController extends Controller
         return ShopLightResource::collection($shops);
     }
 
+    public function allBrands()
+    {
+        $brands = Manufacturer::all();
+
+        return $brands;
+    }
+
     /**
      * Display the specified resource.
      *
