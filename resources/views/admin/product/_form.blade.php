@@ -196,7 +196,7 @@
           <legend>{{ trans('app.branding') }}</legend>
           <div class="form-group">
               {!! Form::label('origin_country', trans('app.form.origin'), ['class' => 'with-help']) !!}
-              {!! Form::select('origin_country', $countries , null, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.origin')]) !!}
+              {!! Form::select('origin_country', $frontend_countries , null, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.origin')]) !!}
               <div class="help-block with-errors"></div>
           </div>
 

@@ -111,7 +111,7 @@
 							  <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.system_country') }}"></i>
 							  <div class="col-sm-8 nopadding-left">
 								  @if($can_update)
-									{!! Form::select('country_id', $countries , $shop->country_id, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.system_country'), 'required']) !!}
+									{!! Form::select('country_id', $frontend_countries , $shop->country_id, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.system_country'), 'required']) !!}
 									  <div class="help-block with-errors"></div>
 								@else
 									<span>{{ $shop->name }}</span>

@@ -28,7 +28,7 @@
   <div class="col-md-6 nopadding-right">
     <div class="form-group">
       {!! Form::label('country_id', trans('app.form.country').'*') !!}
-      {!! Form::select('country_id', $countries , isset($tax) ? $tax->country_id : config('system_settings.address_default_country'), ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.country'), 'required']) !!}
+      {!! Form::select('country_id', $frontend_countries , isset($tax) ? $tax->country_id : config('system_settings.address_default_country'), ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.country'), 'required']) !!}
       <div class="help-block with-errors"></div>
     </div>
   </div>

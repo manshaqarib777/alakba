@@ -29,7 +29,7 @@
   <div class="col-md-6 nopadding-left">
     <div class="form-group">
       {!! Form::label('country_id', trans('app.form.country')) !!}
-      {!! Form::select('country_id', $countries , null, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.country')]) !!}
+      {!! Form::select('country_id', $frontend_countries , null, ['class' => 'form-control select2', 'placeholder' => trans('app.placeholder.country')]) !!}
     </div>
   </div>
 </div>
