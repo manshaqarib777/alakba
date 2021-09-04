@@ -539,7 +539,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 $view->with('plans', \DB::table('subscription_plans')->where('deleted_at', Null)->orderBy('order', 'asc')->select( 'plan_id', 'name', 'cost')->get());
                 $view->with('current_plan', Auth::user()->getCurrentPlan());
                 $view->with('billable', Auth::user()->shop->hasPaymentMethod() ? Auth::user()->shop : Null);
-
+                \Stripe\Stripe::setVerifySslCerts(false);
                 if(SystemConfig::isPaymentConfigured('stripe')) {
                     $view->with('intent', Auth::user()->shop->createSetupIntent());
                 }
