@@ -540,7 +540,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 $view->with('current_plan', Auth::user()->getCurrentPlan());
                 $view->with('billable', Auth::user()->shop->hasPaymentMethod() ? Auth::user()->shop : Null);
 
-                if(SystemConfig::isPaymentConfigured('stripe')) {
+                if(SystemConfig::isPaymentConfigured('stripe') && Auth::user()->shop->createSetupIntent()) {
                     $view->with('intent', Auth::user()->shop->createSetupIntent());
                 }
             }
