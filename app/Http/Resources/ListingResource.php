@@ -40,6 +40,8 @@ class ListingResource extends JsonResource
             'free_shipping' => $this->free_shipping,
             'hot_item' => $this->orders_count >= config('system.popular.hot_item.sell_count', 3) ? true : false,
             'labels' => $this->getLabels(),
+            'shop' => $this->shop,
+
         ];
     }
 }
