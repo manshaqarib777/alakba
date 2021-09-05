@@ -6,6 +6,7 @@ use App\Country;
 use App\Common\Authorizable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Country\CountryRepository;
 use App\Http\Requests\Validations\CreateCountryRequest;
 use App\Http\Requests\Validations\UpdateCountryRequest;
 
@@ -14,14 +15,19 @@ class CountryController extends Controller
     use Authorizable;
 
     private $model;
+    private $country;
 
     /**
      * construct
      */
-    public function __construct()
+    
+    public function __construct(CountryRepository $country)
     {
         parent::__construct();
-        $this->model = trans('app.country');
+
+        $this->model_name = trans('app.model.shop');
+
+        $this->country = $country;
     }
 
     /**
@@ -64,9 +70,9 @@ class CountryController extends Controller
      */
     public function store(CreateCountryRequest $request)
     {
-    	Country::create($request->all());
+        $this->country->store($request);
 
-        return back()->with('success', trans('messages.created', ['model' => $this->model]));
+        return back()->with('success', trans('messages.created', ['model' => $this->model_name]));
     }
 
     /**
@@ -89,15 +95,15 @@ class CountryController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
+        //dd($request->all());
         if(
             ($country->iso_numeric && $request->has('iso_numeric')) ||
             ($country->iso_code && $request->has('iso_code'))
         )
             return back()->with('error', trans('response.invalid_data'));
+        $this->country->update($request, $country->id);
 
-        $country->update($request->all());
-
-        return back()->with('success', trans('messages.updated', ['model' => $this->model]));
+        return back()->with('success', trans('messages.updated', ['model' => $this->model_name]));
     }
 
     /**

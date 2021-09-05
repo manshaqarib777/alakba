@@ -1,9 +1,10 @@
 <?php
 
 namespace App;
-
+use App\Common\Imageable;
 class Country extends BaseModel
 {
+    use  Imageable;
    /**
      * The database table used by the model.
      *
@@ -27,6 +28,18 @@ class Country extends BaseModel
      * @var array
      */
     protected $guarded = ['id'];
+
+    protected $fillable = [
+        'name',
+        'full_name',
+        'calling_code',
+        'citizenship',
+        'capital',
+        'timezone_id',
+        'currency_id',
+        'eea',
+        'active'
+    ];
 
     /**
      * Get all of the states for the country.

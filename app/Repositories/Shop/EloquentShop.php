@@ -41,15 +41,20 @@ class EloquentShop extends EloquentRepository implements BaseRepository, ShopRep
     {
         $shop = parent::update($request, $id);
 
-       /* if ($request->hasFile('image') || ($request->input('delete_image') == 1))
+       if ($request->hasFile('image') || ($request->input('delete_image') == 1))
             $shop->deleteLogo();
         if ($request->hasFile('image'))
-            $shop->saveImage($request->file('image'));
+        {
+            //dd('asas');
+            $shop->deleteImage($shop->image,'image');
+            $shop->saveImage($request->file('image'),'image');
 
-        if ($request->hasFile('cover_image') || ($request->input('delete_cover_image') == 1))
-            $shop->deleteFeaturedImage();
-        if ($request->hasFile('cover_image'))
-            $shop->saveImage($request->file('cover_image'), true);*/
+        }
+
+        if ($request->hasFile('cover_image')) {
+            $shop->deleteImage($shop->coverImage,'cover');
+            $shop->saveImage($request->file('cover_image'),'cover');
+        }
 
         return $shop;
     }

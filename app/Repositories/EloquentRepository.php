@@ -57,10 +57,19 @@ abstract class EloquentRepository
         $model->update($request->all());
 
 	    if ($request->input('delete_image')){
-            foreach ($request->delete_image as $type => $value) {
-                $model->deleteImageTypeOf($type);
-            }
+			//dd($request->delete_image);
+		
+			if (is_array($request->input('delete_image'))){
+				foreach ($request->delete_image as $type => $value) {
+					$model->deleteImageTypeOf($type);
+				}
+			}
+			else{
+				$model->deleteImageTypeOf($request->input('delete_image'));
+	
+			}
         }
+
 
         if ($request->hasFile('images')) {
             foreach ($request->images as $type => $file) {

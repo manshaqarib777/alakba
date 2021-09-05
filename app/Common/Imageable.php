@@ -92,6 +92,7 @@ trait Imageable {
 	 */
 	public function coverImage()
     {
+		//dd('asas');
         return $this->morphOne(\App\Image::class, 'imageable')->where('type', 'cover');
     }
 

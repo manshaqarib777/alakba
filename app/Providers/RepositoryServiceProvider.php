@@ -50,6 +50,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Category\EloquentCategory::class
         );
         $this->app->singleton(
+            \App\Repositories\Country\CountryRepository::class,
+            \App\Repositories\Country\EloquentCountry::class
+        );
+        $this->app->singleton(
             \App\Repositories\CategoryGroup\CategoryGroupRepository::class,
             \App\Repositories\CategoryGroup\EloquentCategoryGroup::class
         );

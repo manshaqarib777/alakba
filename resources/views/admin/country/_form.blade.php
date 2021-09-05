@@ -16,6 +16,7 @@
   </div>
 </div>
 
+
 <div class="row">
   <div class="col-sm-6 nopadding-right">
     <div class="form-group">
@@ -95,6 +96,33 @@
           <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.country_active') }}"></i>
         </span>
       </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 nopadding-left">
+    <div class="form-group">
+      {!! Form::label('exampleInputFile', trans('app.form.cover_img'), ['class' => 'with-help']) !!}
+      <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.cover_img', ['page' => trans('app.country')]) }}"></i>
+      @if(isset($country) && Storage::exists(optional($country->coverImage)->path))
+        <label>
+          <img src="{{ get_storage_file_url(optional($country->coverImage)->path, 'small') }}" width="" alt="{{ trans('app.cover_image') }}">
+          <span style="margin-left: 10px;">
+            {!! Form::checkbox('delete_cover_image', 1, null, ['class' => 'icheck']) !!} {{ trans('app.form.delete_image') }}
+          </span>
+        </label>
+      @endif
+      <div class="row">
+          <div class="col-md-9 nopadding-right">
+            <input id="uploadFile1" placeholder="{{ trans('app.placeholder.cover_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
+            <div class="help-block with-errors">{{ trans('help.cover_img_size') }}</div>
+          </div>
+          <div class="col-md-3 nopadding-left">
+            <div class="fileUpload btn btn-primary btn-block btn-flat">
+                <span>{{ trans('app.form.upload') }} </span>
+                <input type="file" name="cover_image" id="uploadBtn1" class="upload" />
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>
