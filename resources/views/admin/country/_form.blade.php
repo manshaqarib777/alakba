@@ -99,7 +99,7 @@
     </div>
   </div>
 
-  <div class="col-md-6 nopadding-left">
+  <div class="col-md-6">
     <div class="form-group">
       {!! Form::label('exampleInputFile', trans('app.form.cover_img'), ['class' => 'with-help']) !!}
       <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="{{ trans('help.cover_img', ['page' => trans('app.country')]) }}"></i>
@@ -112,7 +112,7 @@
         </label>
       @endif
       <div class="row">
-          <div class="col-md-9 nopadding-left">
+          <div class="col-md-9 nopadding-right">
             <input id="uploadFile1" placeholder="{{ trans('app.placeholder.cover_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
             <div class="help-block with-errors">{{ trans('help.cover_img_size') }}</div>
           </div>
