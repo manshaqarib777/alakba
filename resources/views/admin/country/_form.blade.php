@@ -112,11 +112,11 @@
         </label>
       @endif
       <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-9 nopadding-left">
             <input id="uploadFile1" placeholder="{{ trans('app.placeholder.cover_image') }}" class="form-control" disabled="disabled" style="height: 28px;" />
             <div class="help-block with-errors">{{ trans('help.cover_img_size') }}</div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 nopadding-left">
             <div class="fileUpload btn btn-primary btn-block btn-flat">
                 <span>{{ trans('app.form.upload') }} </span>
                 <input type="file" name="cover_image" id="uploadBtn1" class="upload" />
