@@ -798,6 +798,18 @@ if (! function_exists('get_logo_url'))
     }
 }
 
+if (! function_exists('get_image_url'))
+{
+    function get_image_url($model,  $size = 'small')
+    {
+        if($model->image) {
+            return get_storage_file_url($model->image->path, $size);
+        }
+
+        return get_placeholder_img($size);
+    }
+}
+
 if (! function_exists('verifyUniqueSlug'))
 {
     function verifyUniqueSlug($slug, $table, $field = 'slug', $json = TRUE)
