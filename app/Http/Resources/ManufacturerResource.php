@@ -30,7 +30,7 @@ class ManufacturerResource extends JsonResource
             'slug' => $this->slug,
             'url' => $this->url,
             'description' => $this->description,
-            'origin' => $this->country->name,
+            'origin' => @$this->country->name,
             'listing_count' => $this->inventories_count,
             'available_from' => date('F j, Y', strtotime($this->created_at)),
             'image' => get_logo_url($this, 'small'),
@@ -38,9 +38,5 @@ class ManufacturerResource extends JsonResource
             // 'listings' => $this->listings,
             // 'listings' => ListingResource::collection($listings),
         ];
-    }
-
-    public static function collection($resource){
-        return new ManufacturerResourceCollection($resource);
     }
 }

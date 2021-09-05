@@ -85,7 +85,8 @@ class HomeController extends Controller
     {
         $brands = Manufacturer::all();
 
-        return $brands;
+        return ManufacturerResource::collection($brands);
+
     }
 
     /**
@@ -235,7 +236,7 @@ class HomeController extends Controller
      */
     public function countries()
     {
-        $countries = Country::with('currency')->where('active',1)->get();
+        $countries = Country::with('currency','coverImage')->where('active',1)->get();
         return $countries;
     }
 
