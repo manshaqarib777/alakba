@@ -120,7 +120,7 @@
         <div class="form-group">
             {!! Form::label('decimals', '*' . trans('app.decimals'). ':', ['class' => 'with-help col-sm-7 control-label']) !!}
             <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{{ trans('help.config_decimals') }}"></i>
-            {!! Form::select('decimals', ['0' => '0', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6'], 2, ['class' => 'form-control select2-normal', 'required']) !!}
+            {!! Form::select('decimals', ['0' => '0', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6'], (isset($currency)?null:2), ['class' => 'form-control select2-normal', 'required']) !!}
             <div class="help-block with-errors"></div>
         </div>
     </div>

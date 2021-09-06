@@ -1085,8 +1085,8 @@ if (! function_exists('get_formated_decimal'))
 
         
         $decimal_mark =$currency->decimal_mark;
-
-        $value = number_format($value, $decimal, $decimal_mark, $currency->thousands_separator);
+        //dd( $currency->decimals);
+        $value = number_format($value, $currency->decimals, $decimal_mark, $currency->thousands_separator);
 
         if ($trim) {
             $arr = explode($decimal_mark, $value);
