@@ -826,7 +826,6 @@ if (! function_exists('convertToSlugString'))
 {
     function convertToSlugString($str, $salt = Null, $separator = '-')
     {
-        dd($salt);
         if($salt) {
             return Str::slug($str, $separator) . $separator . Str::slug($salt, $separator);
         }
