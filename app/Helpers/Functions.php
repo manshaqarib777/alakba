@@ -826,6 +826,12 @@ if (! function_exists('convertToSlugString'))
 {
     function convertToSlugString($str, $salt = Null, $separator = '-')
     {
+
+        if(is_array($str))
+        {
+            $locale=(App::getLocale()!=null)?App::getLocale():'en';
+            $str=$str[$locale];
+        }
         if($salt) {
             return Str::slug($str, $separator) . $separator . Str::slug($salt, $separator);
         }

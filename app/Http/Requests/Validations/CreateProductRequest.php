@@ -25,7 +25,7 @@ class CreateProductRequest extends Request
     {
         Request::merge([
                     'shop_id' => $this->user()->merchantId(),
-                    'slug' => convertToSlugString($this->input('name')),
+                    'slug' => convertToSlugString($this->input('name'), $this->input('gtin')),
                 ]); //Set shop_id and slug
 
         return [
