@@ -23,6 +23,8 @@ class CreateProductRequest extends Request
      */
     public function rules()
     {
+
+        dd($this->input('gtin'));
         Request::merge([
                     'shop_id' => $this->user()->merchantId(),
                     'slug' => convertToSlugString($this->input('name'), $this->input('gtin')),
