@@ -60,7 +60,7 @@ return [
         | help search engines understand it better.
         |
         */
-    	'description' => 'zCart is an awesome multi-vendor platform. You will love it for sure.',
+    	'description' => 'Alakba is an awesome multi-vendor platform. You will love it for sure.',
 
         /*
         |--------------------------------------------------------------------------

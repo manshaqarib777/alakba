@@ -319,8 +319,24 @@ if (! function_exists('saveOrderFromCart'))
             $cart->handling = Null;
         }
 
-        $country=Country::where('id',$request->country_id)->first();
-        $currency=Currency::where('id',$country->currency_id)->first();
+        // $country=Country::where('id',$request->country_id)->first();
+        // $currency=Currency::where('id',$country->currency_id)->first();
+
+        if(session()->get('currency')!=null)
+        {
+            $currency=Currency::where('id',session()->get('currency'))->first();
+        
+        }
+        elseif(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+            $currency=Currency::where('id',@$country->currency_id)->first();
+        }
+        else
+        {
+            $country=Country::where('id',config('system_settings.country_id'))->first();
+            $currency=Currency::where('id',$country->currency_id)->first();
+        }
         // Save the order
         $order = new Order;
 

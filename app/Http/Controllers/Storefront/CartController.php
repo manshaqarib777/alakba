@@ -26,7 +26,7 @@ class CartController extends Controller
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $expressId = Null)
+        public function index(Request $request, $expressId = Null)
     {
         $carts = Cart::whereNull('customer_id')->where('ip_address', $request->ip());
 
@@ -53,8 +53,23 @@ class CartController extends Controller
 
         $geoip_state = State::select('id', 'name', 'iso_code', 'country_id')
         ->where('iso_code', $geoip->state)->where('country_id', $geoip_country->id)->first();
-        $country=Country::where('id',session()->get('country'))->first();
-        $current_currency=Currency::where('id',$country->currency_id)->first();
+        //$country=Country::where('id',session()->get('country'))->first();
+        if(session()->get('currency')!=null)
+        {
+            $current_currency=Currency::where('id',session()->get('currency'))->first();
+        
+        }
+        elseif(session()->get('country')!=null)
+        {
+            $country=Country::where('id',session()->get('country'))->first();
+            $current_currency=Currency::where('id',@$country->currency_id)->first();
+        }
+        else
+        {
+            $country=Country::where('id',config('system_settings.country_id'))->first();
+            $current_currency=Currency::where('id',$country->currency_id)->first();
+        }
+        //$current_currency=Currency::where('id',$country->currency_id)->first();
 
         return view('theme::cart', compact('carts','business_areas','geoip_country','geoip_state','platformDefaultPackaging','expressId','current_currency'));
     }
